@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User_Acc;
+import model.User_Info;
 
 /**
  *
@@ -69,6 +70,8 @@ public class LoginServlet extends HttpServlet {
         }
         else {
             session.setAttribute("account", ua);
+            User_Info ui = uad.getUserInfo(ua.getId());
+            session.setAttribute("user_info", ui);
             response.sendRedirect("http://localhost:9999/Movie_Web/");
         }
     }

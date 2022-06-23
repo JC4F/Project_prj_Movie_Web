@@ -26,24 +26,24 @@
                 <h1>Sign up</h1>
                 <div class="form-group">
                     <div class="form-control-wrapper">
-                        <input type="text" name="username" class="form-control" id="username">
+                        <input type="text" name="username" class="form-control" id="username" value="">
                         <label for="username">Username</label>
                     </div>
-                    <span class="form-message">${requestScope.errorU}</span>
+                    <span class="form-message input_un">${requestScope.errorU}</span>
                 </div>
                 <div class="form-group">
                     <div class="form-control-wrapper">
-                        <input type="password" name="password" class="form-control" id="password">
+                        <input type="password" name="password" class="form-control" id="password"  value="">
                         <label for="password">Password</label>
                     </div>
-                    <span class="form-message"></span>
+                    <span class="form-message input_pw">${requestScope.errorP}</span>
                 </div>
                 <div class="form-group">
                     <div class="form-control-wrapper">
-                        <input type="password" name="password_confirmation" class="form-control" id="password-confirmation">
+                        <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" value="">
                         <label for="password_confirmation">Confirm Password</label>
                     </div>
-                    <span class="form-message"></span>
+                    <span class="form-message re_password">${requestScope.errorRP}</span>
                 </div>
                 <button class="form-submit">Login</button>
                 <div class="other-wrapper d-flex justify-content-between">

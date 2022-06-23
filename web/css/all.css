@@ -1935,27 +1935,59 @@ html {
   margin-bottom: 20px;
 }
 
-#page-my-info-box h2 {
+#page-my-info-change-password-box {
+  min-height: 546px;
+  margin-bottom: 30px;
+}
+
+#page-my-info-change-password-box h2 {
   font-size: 2.2rem;
   padding-bottom: 10px;
   margin: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 88px;
 }
 
-#page-my-info-box form {
+#page-my-info-change-password-box .form-wrapper {
   max-width: 400px;
   padding: 20px;
   margin: auto;
 }
 
-#page-my-info-box form .PMI-wrapper {
+#page-my-info-change-password-box .form-wrapper .error__mess-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #ccc;
+  height: 46px;
+  border-radius: 10px;
+  font-size: 1.6rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 10px;
+}
+
+#page-my-info-change-password-box .form-wrapper .error__mess-wrapper span {
+  font-weight: 500;
+}
+
+#page-my-info-change-password-box .form-wrapper .error__mess-wrapper i:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper {
   position: relative;
   font-size: 1.6rem;
   font-weight: 500;
   margin: 20px 0;
 }
 
-#page-my-info-box form .PMI-wrapper img {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper img {
   width: 170px;
   height: 170px;
   border-radius: 50%;
@@ -1965,11 +1997,11 @@ html {
   margin-bottom: 12px;
 }
 
-#page-my-info-box form .PMI-wrapper label {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper label {
   display: block;
 }
 
-#page-my-info-box form .PMI-wrapper label[for="avatar"] .change-avatar {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper label[for="avatar"] .change-avatar {
   position: absolute;
   font-size: 2.5rem;
   width: 40px;
@@ -1984,17 +2016,17 @@ html {
   text-align: center;
 }
 
-#page-my-info-box form .PMI-wrapper label[for="avatar"] .change-avatar:hover {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper label[for="avatar"] .change-avatar:hover {
   background-color: #666;
 }
 
-#page-my-info-box form .PMI-wrapper label[for="avatar"] input[type="file"] {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper label[for="avatar"] input[type="file"] {
   position: absolute;
   top: 0;
   display: none;
 }
 
-#page-my-info-box form .PMI-wrapper input[type="text"] {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper input[type="text"], #page-my-info-change-password-box .form-wrapper .PMI-wrapper input[type="password"] {
   width: 100%;
   border: none;
   border-bottom: 2px solid #ccc;
@@ -2003,15 +2035,15 @@ html {
   background-position: 10px 14px;
   background-repeat: no-repeat;
   padding: 10px;
-  line-height: 1.8rem;
+  line-height: 2.2rem;
   outline: none;
 }
 
-#page-my-info-box form .PMI-wrapper label[for="female"], #page-my-info-box form .PMI-wrapper label[for="male"] {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper label[for="female"], #page-my-info-change-password-box .form-wrapper .PMI-wrapper label[for="male"] {
   display: inline-block;
 }
 
-#page-my-info-box form .PMI-wrapper h3 {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper h3 {
   display: block;
   font-size: 2.6rem;
   font-weight: 600;
@@ -2019,7 +2051,7 @@ html {
   margin-bottom: 30px;
 }
 
-#page-my-info-box form .PMI-wrapper .money-wrapper {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper .money-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2028,11 +2060,11 @@ html {
           justify-content: space-between;
 }
 
-#page-my-info-box form .PMI-wrapper .money-wrapper a {
+#page-my-info-change-password-box .form-wrapper .PMI-wrapper .money-wrapper a {
   text-decoration: none;
 }
 
-#page-my-info-box form input[type="submit"] {
+#page-my-info-change-password-box .form-wrapper input[type="submit"] {
   margin: 10px 0;
   font-size: 1.6rem;
   padding: 8px 16px;
@@ -2043,11 +2075,11 @@ html {
   font-weight: 500;
 }
 
-#page-my-info-box form input[type="submit"]:hover {
+#page-my-info-change-password-box .form-wrapper input[type="submit"]:hover {
   background-color: #a19999;
 }
 
-#page-my-info-box form input[type="date"] {
+#page-my-info-change-password-box .form-wrapper input[type="date"] {
   width: 100%;
   padding: 4px;
 }

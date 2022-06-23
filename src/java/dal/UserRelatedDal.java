@@ -17,6 +17,7 @@ import model.User_Info;
  * @author win
  */
 public class UserRelatedDal extends DBContext{
+    //Check when login
     public User_Acc findAcc(String username, String password){
 	String sql="Select * from user_acc where username=? and password=?";
         try {
@@ -33,6 +34,8 @@ public class UserRelatedDal extends DBContext{
         }
         return null;
     }
+    
+    // check username when sign up
     public User_Acc checkSignUp(String username){
         String sql="Select * from user_acc where username=?";
         try {
@@ -48,6 +51,8 @@ public class UserRelatedDal extends DBContext{
         }
         return null;
     }
+    
+    // add new account to dtb
     public void addSignUpAcc(String username, String password){
         String sql = "insert into user_acc values(?,?,?)";
         try {
@@ -60,6 +65,20 @@ public class UserRelatedDal extends DBContext{
             System.out.println(e);
         }
     }
+    
+    // add default info for account just create
+    public void addDefaultInfo(int user_id){
+        String sql = "insert into user_info (_user_id, avatar , acc_money) values(?, 'avatar_default.jpg', 500 ) ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, user_id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    // get info from dtb to my-info
     public User_Info getUserInfo(int user_id){
         String sql = "Select * from user_info where _user_id = ?";
         try {
@@ -77,5 +96,36 @@ public class UserRelatedDal extends DBContext{
             System.out.println(e);
         }
         return null;
+    }
+    
+    // update information from my-info
+    public void updateInfo(User_Info ui){
+        String sql = "update user_info set avatar=?, fullname=?, email=?, phone=?, gender=?, birth=? where _user_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, ui.getAvatar());
+            st.setString(2, ui.getFullname());
+            st.setString(3, ui.getEmail());
+            st.setString(4, ui.getPhone());
+            st.setString(5, ui.isGender()+"");
+            st.setDate(6, ui.getBirth());
+            st.setInt(7, ui.getUser_id());
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    //change password
+    public void changePw(String newPw, int user_id){
+        String sql = "update user_acc set password=? where id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newPw);
+            st.setInt(2, user_id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

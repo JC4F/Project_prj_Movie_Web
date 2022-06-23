@@ -27,7 +27,7 @@
                             <a class="nav-link active" href="./index.jsp">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./movies.jsp">Movies</a>
+                            <a class="nav-link" href="movies">Movies</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About us</a>
@@ -59,7 +59,7 @@
                             <div class="demo-card-film">
                                 <div class="MyCard-header d-flex">
                                     <h6>Shopping Card</h6>
-                                    <a href="#">View all notification</a>
+                                    <a href="./shop-card.jsp">View all card</a>
                                 </div>
                                 <div class="MyCard-content">
                                     <div class="MyCard-content-item">
@@ -86,13 +86,13 @@
                         </div> -->
                         <!-- add class onclick to appear avatar-down-->
                         <div class="avatar-wrapper">
-                            <img src="./images/avatar.jpg" alt="avatar">
+                            <img src="./images/${sessionScope.user_info.avatar}" alt="avatar">
                             <div class="avatar-down">
                                 <div class="avatar__down-header">
-                                    <img src="./images/avatar.jpg" alt="avatar">
+                                    <img src="./images/${sessionScope.user_info.avatar}" alt="avatar">
                                     <div class="name__money-wrapper">
-                                        <p>Le Minh Quan</p>
-                                        <span>$500.00</span>
+                                        <p>${sessionScope.user_info.fullname}</p>
+                                        <span>${sessionScope.user_info.acc_money}</span>
                                     </div>
                                 </div>
                                 <hr>
@@ -101,7 +101,7 @@
                                 </div>
                                 <hr>
                                 <div class="avatar__down-change-password">
-                                    <a href="#">Change password</a>
+                                    <a href="./change-password.jsp">Change password</a>
                                 </div>
                                 <hr>
                                 <div class="avatar__down-setting">

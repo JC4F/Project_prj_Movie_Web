@@ -603,7 +603,7 @@
     </a>
     <script src="./js/script.js"></script>
     <script>
-        handleAll_Except_Login_SignOut();
+        handleAll();
         handleIndex();
     </script>
 </body>

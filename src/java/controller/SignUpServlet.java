@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User_Acc;
+import model.User_Info;
 
 /**
  *
@@ -46,8 +47,26 @@ public class SignUpServlet extends HttpServlet {
     throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        HttpSession session = request.getSession();
+        String password_confirmation = request.getParameter("password_confirmation");
         
+        if(username=="" || password=="" || password_confirmation==""){
+            if(username=="")
+                request.setAttribute("errorU", "Input required!");
+            if(password=="")
+                request.setAttribute("errorP", "Input required!");
+            if(password_confirmation=="")
+                request.setAttribute("errorRP", "Input required!");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            return;
+        }
+        
+        if(!password.equals(password_confirmation)){
+            request.setAttribute("errorRP", "Password confirmation wrong!");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            return;
+        }
+        
+        HttpSession session = request.getSession();
         UserRelatedDal uad = new UserRelatedDal();
         User_Acc ua = uad.checkSignUp(username);
         if(ua!=null){
@@ -57,7 +76,10 @@ public class SignUpServlet extends HttpServlet {
         }
         uad.addSignUpAcc(username, password);
         User_Acc newAcc = uad.findAcc(username, password);
-        session.setAttribute("account", ua);
+        uad.addDefaultInfo(newAcc.getId());
+        User_Info ui = uad.getUserInfo(newAcc.getId());
+        session.setAttribute("account", newAcc);
+        session.setAttribute("user_info", ui);
         response.sendRedirect("my-info");
     }
 

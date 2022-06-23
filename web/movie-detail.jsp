@@ -228,5 +228,8 @@
     </div>
     <%@include file="footer.jsp"%> 
     <script src="./js/script.js"></script>
+    <script>
+        handleAll();
+    </script>
 </body>
 </html>

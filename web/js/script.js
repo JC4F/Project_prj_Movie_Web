@@ -2,7 +2,7 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-function handleAll_Except_Login_SignOut() {
+function preventDefaultSubmit() {
     //prevent default form
     var formlist = document.querySelectorAll('form');
     for (var form of formlist) {
@@ -10,6 +10,9 @@ function handleAll_Except_Login_SignOut() {
             e.preventDefault();
         }
     }
+}
+
+function handleAll() {
 
     //btn shoping card + btn avatar
     let shopingCardBtn = $('#page-heading .shoping-card-title');
@@ -33,19 +36,6 @@ function handleAll_Except_Login_SignOut() {
             }
         }
     }
-
-    //============== nav =================
-    // let nav_header = $("#page-heading nav");
-    // window.onscroll = ()=> {
-    //     if(window.scrollY>100){
-    //         nav_header.classList.remove("container");
-    //         nav_header.classList.add("onactive");
-    //     }
-    //     else{
-    //         nav_header.classList.remove("onactive");
-    //         nav_header.classList.add("container");
-    //     }
-    // }
 
 }
 
@@ -472,9 +462,13 @@ function handleSignUp() {
     let formInputs = $$('input:not([type="checkbox"])');
     let agreeBtn = $('input[type="checkbox"]');
     let submitBtn = $('.form-submit');
-    let form = $('.form-wrapper form');
     let agreeErrors = $('.agree-error');
-    console.log("🚀 ~ file: script.js ~ line 476 ~ handleSignUp ~ agreeErrors", agreeErrors)
+    let userInput = $('input[name="username"]');
+    let passInput = $('input[name="password"]');
+    let repassInput = $('input[name="password_confirmation"]');
+    let nextSpan1 =  $('.input_un');
+    let nextSpan2 =  $('.input_pw');
+    let nextSpan3 =  $('.re_password');
 
     for (var formInput of formInputs) {
         formInput.onblur = function (e) {
@@ -484,11 +478,26 @@ function handleSignUp() {
             else this.parentElement.classList.remove('has-text');
         }
     }
+    
+    userInput.oninput = function () {
+        nextSpan1.innerHTML = '';
+    }
+    passInput.oninput = function () {
+        nextSpan2.innerHTML = '';
+    }
+    repassInput.oninput = function () {
+        nextSpan3.innerHTML = '';
+    }
 
     submitBtn.onclick = (e) => {
         e.preventDefault();
         if (agreeBtn.checked) {
-            form.submit();
+            const parameters = {
+                username: userInput.value,
+                password: passInput.value,
+                password_confirmation: repassInput.value
+            }
+            sendData('signup', parameters)
             return;
         }
         agreeErrors.innerHTML = 'Agree Terms of Service to create a new account'
@@ -500,7 +509,28 @@ function handleSignUp() {
             iterations: 2,
         })
     }
+
+    // submit form with method post
+    function sendData(path, parameters, method = 'post') {
+
+        const form = document.createElement('form');
+        form.method = method;
+        form.action = path;
+        document.body.appendChild(form);
+
+        for (const key in parameters) {
+            const formField = document.createElement('input');
+            formField.type = 'hidden';
+            formField.name = key;
+            formField.value = parameters[key];
+
+            form.appendChild(formField);
+        }
+        form.submit();
+    }
 }
+
+
 // handle my-info
 function handleMyInfo() {
     let inputFile = $('input[type="file"]');
@@ -512,4 +542,16 @@ function handleMyInfo() {
             imgShow.src = URL.createObjectURL(file)
         }
     }
+}
+
+// handle change password
+function handleChangePassword() {
+    let wrapper = $('.error__mess-wrapper');
+    let errorMess = $('.error__mess-wrapper span');
+
+    window.onload = (event) => {
+        if(errorMess.innerHTML === '') {
+            wrapper.style.display = 'none';
+        }
+    };
 }
