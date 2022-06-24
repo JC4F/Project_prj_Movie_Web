@@ -392,25 +392,6 @@ function handleMovies() {
     let currentIndex;
     for (let paginationBtn of paginationBtns) {
         paginationBtn.addEventListener('click', () => {
-            // let index = paginationBtn.dataset.index;
-            // if(index>=1 && index <= paginationBtns.length-2){
-            //     handleClickPa(index);
-            //     currentIndex = index;
-            //     // if(index == 1){
-            //     //     paginationBtns[0].style.display='none';
-            //     //     paginationBtns[paginationBtns.length-1].style.display='inline-block';
-            //     // }
-            //     // if(index == paginationBtns.length-2) {
-            //     //     paginationBtns[0].style.display='inline-block';
-            //     //     paginationBtns[paginationBtns.length-1].style.display='none';
-            //     // }
-            // }
-            // else{
-            //     let activeIndex = $('.RC-pagination a.active').dataset.index;
-            //     if(index == 0){
-
-            //     }
-            // }
             let index = paginationBtn.dataset.index;
             let activeIndex = $('.RC-pagination a.active').dataset.index;
             if (index >= 1 && index <= paginationBtns.length - 2) {
@@ -430,6 +411,38 @@ function handleMovies() {
             }
             handleClickPa(currentIndex)
         })
+    }
+    
+    //handle submitform
+    let formSearch = $('.RC-search-header form');
+    let selectSearch = $('.RC-search-header select');
+    let inputSearch = $('.RC-search-header input');
+    formSearch.onkeydown = (e) => {
+        if(e.key == 'Enter'){
+            const parameters = {
+                selectSearch: selectSearch.value,
+                inputSearch: inputSearch.value
+            }
+            sendData('search-movie', parameters)
+        }
+    }
+    
+    function sendData(path, parameters, method = 'post') {
+
+        const form = document.createElement('form');
+        form.method = method;
+        form.action = path;
+        document.body.appendChild(form);
+
+        for (const key in parameters) {
+            const formField = document.createElement('input');
+            formField.type = 'hidden';
+            formField.name = key;
+            formField.value = parameters[key];
+
+            form.appendChild(formField);
+        }
+        form.submit();
     }
 }
 
@@ -554,4 +567,14 @@ function handleChangePassword() {
             wrapper.style.display = 'none';
         }
     };
+}
+
+//handle movie-detail
+function handleMovieDetail(){
+    let readMoreBtn = $('.IC-left .read-more');
+    
+    readMoreBtn.onclick = () =>{
+        let parentRM = readMoreBtn.closest('.IC-left');
+        parentRM.classList.add('show');
+    }
 }

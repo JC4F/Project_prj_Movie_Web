@@ -14,8 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Actor;
-import model.Comment;
 import model.Genre;
 import model.Movie;
 
@@ -23,25 +21,14 @@ import model.Movie;
  *
  * @author win
  */
-@WebServlet(name="MovieDetailServlet", urlPatterns={"/movie-detail"})
-public class MovieDetailServlet extends HttpServlet {
+@WebServlet(name="SearchMovieServlet", urlPatterns={"/search-movie"})
+public class SearchMovieServlet extends HttpServlet {
+   
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        int id = Integer.parseInt(id_raw);
-        MovieRelated mrd = new MovieRelated();
         
-        Movie movie = mrd.getMovieById(id);
-        List<Actor> actorList = mrd.getActorById(id);
-        List<Comment> cmtList = mrd.getCmtById(id);
-        List<Genre> genreList = mrd.getGenreByMovieId(id);
-        request.setAttribute("movie", movie);
-        request.setAttribute("actorList", actorList);
-        request.setAttribute("cmtList", cmtList);
-        request.setAttribute("genreList", genreList);
-        request.getRequestDispatcher("movie-detail.jsp").forward(request, response);
     } 
 
     /** 
@@ -54,6 +41,14 @@ public class MovieDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String selectSearch = request.getParameter("selectSearch");
+        String inputSearch = request.getParameter("inputSearch");
+        
+        MovieRelated mrd = new MovieRelated();
+        List<Genre> listGenre = mrd.getAllGenre();
+        List<Movie> listMovie = mrd.getSearchedMovie(selectSearch, inputSearch);
+        request.setAttribute("listMovie", listMovie);
+        request.getRequestDispatcher("movies.jsp").forward(request, response);
     }
 
     /** 

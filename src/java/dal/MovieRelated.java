@@ -14,6 +14,7 @@ import model.Comment;
 import model.Director;
 import model.Genre;
 import model.Movie;
+import model.User_Info;
 
 /**
  *
@@ -94,6 +95,7 @@ public class MovieRelated extends DBContext{
         String sql = "select actor.id, fullname, birth, nationality from actor join movie_actor on actor.id = movie_actor._actor_id where _movie_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
                 Actor g = new Actor(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
@@ -108,17 +110,144 @@ public class MovieRelated extends DBContext{
     //get comment by movieid
     public List<Comment> getCmtById(int id){
         List<Comment> list = new ArrayList<>();
-        String sql = "select actor.id, fullname, birth, nationality from actor join movie_actor on actor.id = movie_actor._actor_id where _movie_id = ?";
+        String sql = "select comment.* from comment join movie_cmt on comment.id = movie_cmt._movie_id where _movie_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
-                Actor g = new Actor(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
-//                list.add(g);===========================================================
+                Comment g = new Comment(rs.getInt(1), getUiByCmtId(rs.getInt(2)), rs.getString(3), rs.getDate(4));
+                list.add(g);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
+    }
+    
+    public User_Info getUiByCmtId(int id) {
+        String sql = "Select * from user_info where _user_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                User_Info a = new User_Info(rs.getInt(1), rs.getInt(2), 
+                        rs.getString(3), rs.getString(4), rs.getString(5), 
+                        rs.getString(6), rs.getBoolean(7), rs.getDate(8), 
+                        rs.getDouble(9));
+                return a;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public List<Genre> getGenreByMovieId(int id){
+        List<Genre> list = new ArrayList<>();
+        String sql = "select genre.* from genre join movie_gender on genre.id = movie_gender._genre_id where movie_gender._movie_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Genre g = new Genre(rs.getInt(1), rs.getString(2));
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public List<Movie> getSearchedMovie(String type, String input){
+        List<Movie> list = new ArrayList<>();
+        if(type.equals("Name")){
+            String sql = "select * from movie where name like ?";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setString(1, ("%"+input+"%"));
+                ResultSet rs = st.executeQuery();
+                while(rs.next()){
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                    list.add(g);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return list;
+        }
+        
+        if(type.equals("Country")){
+            String sql = "select * from movie where country like ?";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setString(1, ("%"+input+"%"));
+                ResultSet rs = st.executeQuery();
+                while(rs.next()){
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                    list.add(g);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return list;
+        }
+        
+        if(type.equals("Price")){
+            String sql = "select * from movie where price=?";
+            int inputInt = -1;
+            try {
+                inputInt = Integer.parseInt(input);
+            } catch (Exception e) {
+            }
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setInt(1, inputInt);
+                ResultSet rs = st.executeQuery();
+                while(rs.next()){
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                    list.add(g);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return list;
+        }
+        
+        if(type.equals("Actor")){
+            String sql = "select  movie.* from movie join movie_actor on movie.id = movie_actor._movie_id  join actor on actor.id = movie_actor._actor_id where actor.fullname like ?";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setString(1, ("%"+input+"%"));
+                ResultSet rs = st.executeQuery();
+                while(rs.next()){
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                    list.add(g);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return list;
+        }
+        
+        if(type.equals("Director")){
+            String sql = "select * from movie where country like ?";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setString(1, ("%"+input+"%"));
+                ResultSet rs = st.executeQuery();
+                while(rs.next()){
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                    list.add(g);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return list;
+        }
+        
+        return null;
     }
 }

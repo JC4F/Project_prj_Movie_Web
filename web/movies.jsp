@@ -50,11 +50,12 @@
                 <div class="RC-search-header">
                     <form>
                         <select name="RC-search-type">
-                            <option value="1">All</option>
-                            <option value="2">Moives</option>
-                            <option value="3">Actors</option>
-                            <option value="4">Country</option>
-                            <option value="5">Price</option>
+                            <option value="All">All</option>
+                            <option value="Name">Name</option>
+                            <option value="Actor">Actor</option>
+                            <option value="Director">Director</option>
+                            <option value="Country">Country</option>
+                            <option value="Price">Price</option>
                         </select>
                         <div class="RC-search_wrapper">
                             <input type="text" name="RC-ip-search" id="" placeholder="Find ...">

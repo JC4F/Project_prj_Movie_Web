@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,16 +25,16 @@
                 <ul class="navbar-nav ml-auto d-flex justify-content-between nav-width" id="collapsibleNavbar">
                     <div class="const-component-wrapper d-flex">
                         <li class="nav-item active">
-                            <a class="nav-link active" href="./index.jsp">Home</a>
+                            <a class="nav-link ${(!!pageContext.request.requestURI.contains('index') || !!pageContext.request.requestURI.equals('/Movie_Web/'))?'active':''}" href="./index.jsp">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="movies">Movies</a>
+                            <a class="nav-link ${(!!pageContext.request.requestURI.contains('movie'))?'active':''}" href="movies">Movies</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item ${(!!pageContext.request.requestURI.contains('about-us'))?'active':''}">
                             <a class="nav-link" href="#">About us</a>
                         </li>
                         <!-- them not-admin de an link nay -->
-                        <li class="nav-item ${((sessionScope.account.role!=1)?'not-admin':'')}">
+                        <li class="nav-item ${((sessionScope.account.role!=1)?'not-admin':'')} ${(!!pageContext.request.requestURI.contains('admin'))?'active':''}">
                             <a class="nav-link" href="#">Admin Manager</a>
                         </li>
                         <!-- <li class="nav-item">
