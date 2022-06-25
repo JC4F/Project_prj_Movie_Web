@@ -366,52 +366,52 @@ function handleIndex() {
 //movies.html
 function handleMovies() {
     //btn pagination
-    function handleClickPa(index) {
-
-        for (let paginationBtn of paginationBtns) {
-            if (paginationBtn.classList.contains('active')) {
-                paginationBtn.classList.remove('active');
-            }
-        }
-        paginationBtns[index].classList.add('active');
-        if (index == 1) {
-            paginationBtns[0].style.display = 'none';
-        }
-        else {
-            paginationBtns[0].style.display = 'inline-block';
-        }
-        if (index == paginationBtns.length - 2) {
-            paginationBtns[paginationBtns.length - 1].style.display = 'none';
-        }
-        else {
-            paginationBtns[paginationBtns.length - 1].style.display = 'inline-block';
-        }
-    }
-
-    let paginationBtns = $$('.RC-pagination a');
-    let currentIndex;
-    for (let paginationBtn of paginationBtns) {
-        paginationBtn.addEventListener('click', () => {
-            let index = paginationBtn.dataset.index;
-            let activeIndex = $('.RC-pagination a.active').dataset.index;
-            if (index >= 1 && index <= paginationBtns.length - 2) {
-                currentIndex = index;
-            }
-            else if (index == 0) {
-                if (activeIndex == 1) {
-                    currentIndex = paginationBtns.length - 2;
-                }
-                else currentIndex = Number(activeIndex) - 1;
-            }
-            else {
-                if (activeIndex == 6) {
-                    currentIndex = 1;
-                }
-                else currentIndex = Number(activeIndex) + 1;
-            }
-            handleClickPa(currentIndex)
-        })
-    }
+//    function handleClickPa(index) {
+//
+//        for (let paginationBtn of paginationBtns) {
+//            if (paginationBtn.classList.contains('active')) {
+//                paginationBtn.classList.remove('active');
+//            }
+//        }
+//        paginationBtns[index].classList.add('active');
+//        if (index == 1) {
+//            paginationBtns[0].style.display = 'none';
+//        }
+//        else {
+//            paginationBtns[0].style.display = 'inline-block';
+//        }
+//        if (index == paginationBtns.length - 2) {
+//            paginationBtns[paginationBtns.length - 1].style.display = 'none';
+//        }
+//        else {
+//            paginationBtns[paginationBtns.length - 1].style.display = 'inline-block';
+//        }
+//    }
+//
+//    let paginationBtns = $$('.RC-pagination a');
+//    let currentIndex;
+//    for (let paginationBtn of paginationBtns) {
+//        paginationBtn.addEventListener('click', () => {
+//            let index = paginationBtn.dataset.index;
+//            let activeIndex = $('.RC-pagination a.active').dataset.index;
+//            if (index >= 1 && index <= paginationBtns.length - 2) {
+//                currentIndex = index;
+//            }
+//            else if (index == 0) {
+//                if (activeIndex == 1) {
+//                    currentIndex = paginationBtns.length - 2;
+//                }
+//                else currentIndex = Number(activeIndex) - 1;
+//            }
+//            else {
+//                if (activeIndex == paginationBtns.length-1) {
+//                    currentIndex = 1;
+//                }
+//                else currentIndex = Number(activeIndex) + 1;
+//            }
+//            handleClickPa(currentIndex)
+//        })
+//    }
     
     //handle submitform
     let formSearch = $('.RC-search-header form');

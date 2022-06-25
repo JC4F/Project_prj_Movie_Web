@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="./js/jquery-3.6.0.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
@@ -75,7 +76,7 @@
                                 </div>
                                 <div class="movie-description">
                                     <h6><a href="movie-detail?id=${m.id}">${m.name}</a></h6>
-                                    <p${m.realse_year}, ${m.country}, Action</p>
+                                    <p>${m.realse_year}, ${m.country}, Action</p>
                                     <div class="description-star">
                                         <c:forEach begin="${1}" end="${5}" var="i">
                                             <c:if test="${i<=m.rating}">
@@ -97,14 +98,15 @@
                     </div>
                 </div>
                 <div class="RC-pagination">
-                    <a href="#" data-index="0">&laquo;</a>
-                    <a href="#" data-index="1">1</a>
-                    <a class="active" href="#" data-index="2">2</a>
-                    <a href="#" data-index="3">3</a>
-                    <a href="#" data-index="4">4</a>
-                    <a href="#" data-index="5">5</a>
-                    <a href="#" data-index="6">6</a>
-                    <a href="#" data-index="7">&raquo;</a>
+                    <c:if test="${requestScope.page!=1}">
+                        <a href="movies?page=${requestScope.page-1}" data-index="0">&laquo;</a>
+                    </c:if>
+                    <c:forEach begin="${1}" end="${requestScope.num}" var="n">
+                        <a class="${((n==requestScope.page)?'active':'')}" href="movies?page=${n}" data-index="${n}">${n}</a>
+                    </c:forEach>
+                    <c:if test="${requestScope.page!=requestScope.num}">
+                        <a href="movies?page=${requestScope.page+1}" data-index="0">&raquo;</a>
+                    </c:if>
                 </div>
             </div>
         </div>

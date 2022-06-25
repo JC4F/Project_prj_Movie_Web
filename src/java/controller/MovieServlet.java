@@ -29,9 +29,27 @@ public class MovieServlet extends HttpServlet {
     throws ServletException, IOException {
         MovieRelated mrd = new MovieRelated();
         List<Genre> listGenre = mrd.getAllGenre();
-        List<Movie> listMovie = mrd.getAllMovie();
+        List<Movie> listMovieTmp = mrd.getAllMovie();
+        
+        int page, numperpage = 8;
+        int size = listMovieTmp.size();
+        int num = (size%9==0?(size/6):((size/6)+1));
+        String xpage = request.getParameter("page");
+        if(xpage==null){
+            page=1;
+        } else {
+            page = Integer.parseInt(xpage);
+        }
+        int start, end;
+        start = (page-1)*numperpage;
+        end = Math.min(page*numperpage, size);
+        
+        List<Movie> listMovie = mrd.getMovieByPage(listMovieTmp, start, end);
         request.setAttribute("listGenre", listGenre);
         request.setAttribute("listMovie", listMovie);
+        request.setAttribute("page", page);
+        request.setAttribute("num", num);
+        
         request.getRequestDispatcher("movies.jsp").forward(request, response);
     } 
 

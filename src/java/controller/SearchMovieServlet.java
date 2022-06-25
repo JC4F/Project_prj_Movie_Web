@@ -48,6 +48,7 @@ public class SearchMovieServlet extends HttpServlet {
         List<Genre> listGenre = mrd.getAllGenre();
         List<Movie> listMovie = mrd.getSearchedMovie(selectSearch, inputSearch);
         request.setAttribute("listMovie", listMovie);
+        request.setAttribute("listGenre", listGenre);
         request.getRequestDispatcher("movies.jsp").forward(request, response);
     }
 
