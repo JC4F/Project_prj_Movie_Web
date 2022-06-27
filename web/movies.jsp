@@ -10,10 +10,11 @@
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="./js/jquery-3.6.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/script.js"></script>
     </head>
     <body>
         <div id="page-heading">
@@ -25,12 +26,12 @@
                 <form>
                     <button data-toggle="collapse" data-target="#LC-filter">Filter <i class="fas fa-dot-circle"></i></button>
                     <div id="LC-filter" class="collapse">
-                        <input type="checkbox" name="isPaid" id="isPaid" value="1">
+                        <input onclick="handelAjax()" type="checkbox" name="isPaid" id="isPaid" value="1">
                         <label for="isPaid">Have owned</label>
                     </div>
                     <button data-toggle="collapse" data-target="#LC-sort">Sort By <i class="fas fa-dot-circle"></i></button>
                     <div id="LC-sort" class="collapse">
-                        <select name="sort-select">
+                        <select name="sort-select" id="sort-select">
                             <option value="nameDown">Name &#xf063;</option>
                             <option value="nameUP">Name &#xf062;</option>
                             <option value="priceDown">Price &#xf063;</option>
@@ -59,7 +60,7 @@
                             <option value="Price">Price</option>
                         </select>
                         <div class="RC-search_wrapper">
-                            <input type="text" name="RC-ip-search" id="" placeholder="Find ...">
+                            <input id ="somebutton" type="text" name="RC-ip-search" id="" placeholder="Find ...">
                         </div>
                     </form>
                 </div>
@@ -94,7 +95,6 @@
                                 </div>
                             </div>
                         </c:forEach>
-
                     </div>
                 </div>
                 <div class="RC-pagination">
@@ -110,12 +110,13 @@
                 </div>
             </div>
         </div>
+        <!--<input id="hiden" type="hidden" value="${requestScope.listMovie}"-->
         <%@include file="footer.jsp"%> 
-        <script src="./js/script.js"></script>
-        <script>
-            handleMovies();
-            handleAll();
-            preventDefaultSubmit();
-        </script>
     </body>
+    <script>
+        handleMovies();
+        handleAll();
+        preventDefaultSubmit();
+    </script>
+    <script src="./js/ajax.js"></script>
 </html>

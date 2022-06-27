@@ -1,6 +1,6 @@
 // all
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+const _$ = document.querySelector.bind(document);
+const _$_$ = document.querySelectorAll.bind(document);
 
 function preventDefaultSubmit() {
     //prevent default form
@@ -15,8 +15,8 @@ function preventDefaultSubmit() {
 function handleAll() {
 
     //btn shoping card + btn avatar
-    let shopingCardBtn = $('#page-heading .shoping-card-title');
-    let avatarBtn = $('#page-heading .avatar-wrapper img')
+    let shopingCardBtn = _$('#page-heading .shoping-card-title');
+    let avatarBtn = _$('#page-heading .avatar-wrapper img')
     shopingCardBtn.onclick = function () {
         this.parentElement.classList.toggle('onclick');
     }
@@ -42,12 +42,12 @@ function handleAll() {
 // index.html 
 function handleIndex() {
     // ==============slider-btn-click==============
-    let sliderContainer = $(".slider-containers");
-    let sliderItem = $(".slider-container");
-    let sliderImg = $$(".slider-container .slider1");
+    let sliderContainer = _$(".slider-containers");
+    let sliderItem = _$(".slider-container");
+    let sliderImg = _$_$(".slider-container .slider1");
     let size = sliderImg.length;
     let oneSlider = sliderItem.clientWidth / size;
-    let dotBtns = $$(".dot-item");
+    let dotBtns = _$_$(".dot-item");
     let counter = 1;
 
     for (let dotBtn of dotBtns) {
@@ -61,7 +61,7 @@ function handleIndex() {
             dotBtn.classList.add("active");
 
             sliderItem.style.transition = "transform 0.4s ease-in-out";
-            sliderItem.style.transform = `translateX(${-((2 * counter) * oneSlider)}px)`;
+            sliderItem.style.transform = `translateX(_${-((2 * counter) * oneSlider)}px)`;
         })
     }
 
@@ -71,7 +71,7 @@ function handleIndex() {
     let startP, currentP;
 
     // an cai clone cuoi khi xuat hien
-    sliderItem.style.transform = `translateX(${-(2 * oneSlider)}px)`;
+    sliderItem.style.transform = `translateX(_${-(2 * oneSlider)}px)`;
 
     function getTranslateX() {
         var style = window.getComputedStyle(sliderItem);
@@ -107,7 +107,7 @@ function handleIndex() {
         if (!isPress) return;
         currentP = e.screenX - startP;
 
-        sliderItem.style.transform = `translateX(${currentP}px)`;
+        sliderItem.style.transform = `translateX(_${currentP}px)`;
         handleMousemove(e);
     })
 
@@ -116,17 +116,17 @@ function handleIndex() {
         if (!isPress) return;
         currentP = e.screenX - startP;
 
-        sliderItem.style.transform = `translateX(${currentP}px)`;
+        sliderItem.style.transform = `translateX(_${currentP}px)`;
         handleMousemove(e);
     })
 
     function handleMousemove(e) {
         if (getTranslateX() >= 0) {
-            sliderItem.style.transform = `translateX(${-(size - 4) * oneSlider}px)`;
+            sliderItem.style.transform = `translateX(_${-(size - 4) * oneSlider}px)`;
             startP = e.screenX - getTranslateX();
         }
         if (-getTranslateX() >= (sliderItem.clientWidth - 2 * oneSlider)) {
-            sliderItem.style.transform = `translateX(${-(2) * oneSlider}px)`;
+            sliderItem.style.transform = `translateX(_${-(2) * oneSlider}px)`;
             startP = e.screenX - getTranslateX();
         }
     }
@@ -165,11 +165,11 @@ function handleIndex() {
         // handlde transform
         if (i % 2 === 0) {
             // counter=i/2;
-            sliderItem.style.transform = `translateX(${-(i) * halfOfWidth}px)`;
+            sliderItem.style.transform = `translateX(_${-(i) * halfOfWidth}px)`;
         }
         else {
             // counter=(i-1)/2;
-            sliderItem.style.transform = `translateX(${-(i - 1) * halfOfWidth}px)`;
+            sliderItem.style.transform = `translateX(_${-(i - 1) * halfOfWidth}px)`;
         }
     }
 
@@ -181,21 +181,21 @@ function handleIndex() {
         if (startPSlide == -(size - 2) * oneSlider) {
             startPSlide = -2 * oneSlider;
             sliderItem.style.transition = "none";
-            sliderItem.style.transform = `translateX(${startPSlide}px)`;
+            sliderItem.style.transform = `translateX(_${startPSlide}px)`;
         }
     })
     setInterval(() => {
         if (!isPress) {
             startPSlide -= oneSlider;
             sliderItem.style.transition = "transform 0.4s ease-in-out";
-            sliderItem.style.transform = `translateX(${startPSlide}px)`;
+            sliderItem.style.transform = `translateX(_${startPSlide}px)`;
         }
     }, 3000);
 
     // =======watch movies==============
-    let btnControllers = $$('#page-content .btn-controller .btn');
+    let btnControllers = _$_$('#page-content .btn-controller .btn');
     function filterMovies(selector) {
-        let movieControlleds = $$('.btn-controller + .row .col-lg-3');  //nodelist
+        let movieControlleds = _$_$('.btn-controller + .row .col-lg-3');  //nodelist
 
         for (let movieControlled of movieControlleds) {
             if (movieControlled.classList.contains(selector)) {
@@ -225,9 +225,9 @@ function handleIndex() {
 
 
     // ========testmonials =================================
-    let T_show = $('.T-review-show');
-    let T_container = $('.T-review-container');
-    let T_reviewers = $$('.T-reviewer');
+    let T_show = _$('.T-review-show');
+    let T_container = _$('.T-review-container');
+    let T_reviewers = _$_$('.T-reviewer');
     let T_size = T_reviewers.length;
     let T_oneReviewer = T_container.clientWidth / T_size;
     let T_sliderSpace = 0;
@@ -236,7 +236,7 @@ function handleIndex() {
     let T_interval = true;
     let T_startP, T_currentP;
     let T_body = document.documentElement;
-    let T_dotItems = $$('.T-dot-item');
+    let T_dotItems = _$_$('.T-dot-item');
     var T_id;
 
     function T_getTranslateX() {
@@ -249,7 +249,7 @@ function handleIndex() {
         T_interval = true;
         T_sliderSpace += T_oneReviewer;
         T_container.style.transition = "transform 0.4s ease-in-out";
-        T_container.style.transform = `translateX(${-(T_sliderSpace)}px)`;
+        T_container.style.transform = `translateX(_${-(T_sliderSpace)}px)`;
     }
     // truot slide
     T_id = setInterval(T_moveSlide, 3000);
@@ -303,16 +303,16 @@ function handleIndex() {
         e.preventDefault();
         if (!T_pressed) return;
         T_currentP = e.screenX - T_startP;
-        T_container.style.transform = `translateX(${T_currentP}px)`;
+        T_container.style.transform = `translateX(_${T_currentP}px)`;
 
         let y = T_getTranslateX();
         if (y >= 0) {
-            T_container.style.transform = `translateX(${(300 * y) / (300 + y)}px)`;
+            T_container.style.transform = `translateX(_${(300 * y) / (300 + y)}px)`;
             T_startP = e.screenX - y;
         }
         if (-y >= (T_container.clientWidth - T_show.clientWidth)) {
             let k = -y - (T_container.clientWidth - T_show.clientWidth);
-            T_container.style.transform = `translateX(-${(T_container.clientWidth - T_show.clientWidth + (300 * k) / (k + 300))}px)`;
+            T_container.style.transform = `translateX(-_${(T_container.clientWidth - T_show.clientWidth + (300 * k) / (k + 300))}px)`;
             T_startP = e.screenX - y;
         }
     }
@@ -338,11 +338,11 @@ function handleIndex() {
         if (i % 2 === 0) {
             // counter=i/2;
             if (i >= 8) i = 8;
-            T_container.style.transform = `translateX(${-(i) * halfOfWidth}px)`;
+            T_container.style.transform = `translateX(_${-(i) * halfOfWidth}px)`;
         }
         else {
             // counter=(i-1)/2;
-            T_container.style.transform = `translateX(${-(i - 1) * halfOfWidth}px)`;
+            T_container.style.transform = `translateX(_${-(i - 1) * halfOfWidth}px)`;
         }
         // console.log(i)
         if (!T_interval && T_sliderSpace < T_oneReviewer * (4)) {
@@ -358,7 +358,7 @@ function handleIndex() {
                 T_interval = false;
                 clearInterval(T_id);
             }
-            T_container.style.transform = `translateX(-${(T_dotItem.dataset.index - 1) * 2 * T_oneReviewer}px)`;
+            T_container.style.transform = `translateX(-_${(T_dotItem.dataset.index - 1) * 2 * T_oneReviewer}px)`;
         })
     }
 }
@@ -388,12 +388,12 @@ function handleMovies() {
 //        }
 //    }
 //
-//    let paginationBtns = $$('.RC-pagination a');
+//    let paginationBtns = _$_$('.RC-pagination a');
 //    let currentIndex;
 //    for (let paginationBtn of paginationBtns) {
 //        paginationBtn.addEventListener('click', () => {
 //            let index = paginationBtn.dataset.index;
-//            let activeIndex = $('.RC-pagination a.active').dataset.index;
+//            let activeIndex = _$('.RC-pagination a.active').dataset.index;
 //            if (index >= 1 && index <= paginationBtns.length - 2) {
 //                currentIndex = index;
 //            }
@@ -414,9 +414,9 @@ function handleMovies() {
 //    }
     
     //handle submitform
-    let formSearch = $('.RC-search-header form');
-    let selectSearch = $('.RC-search-header select');
-    let inputSearch = $('.RC-search-header input');
+    let formSearch = _$('.RC-search-header form');
+    let selectSearch = _$('.RC-search-header select');
+    let inputSearch = _$('.RC-search-header input');
     formSearch.onkeydown = (e) => {
         if(e.key == 'Enter'){
             const parameters = {
@@ -448,9 +448,9 @@ function handleMovies() {
 
 // login page
 function handleLogin() {
-    let formInputs = $$('input:not([type="checkbox"])');
-    let showBtn = $('.captcha-wrapper span');
-    let closeLoginFailBtn = $('.login-fail span');
+    let formInputs = _$_$('input:not([type="checkbox"])');
+    let showBtn = _$('.captcha-wrapper span');
+    let closeLoginFailBtn = _$('.login-fail span');
 
     for (var formInput of formInputs) {
         formInput.onblur = function (e) {
@@ -472,16 +472,16 @@ function handleLogin() {
 
 // sign up page
 function handleSignUp() {
-    let formInputs = $$('input:not([type="checkbox"])');
-    let agreeBtn = $('input[type="checkbox"]');
-    let submitBtn = $('.form-submit');
-    let agreeErrors = $('.agree-error');
-    let userInput = $('input[name="username"]');
-    let passInput = $('input[name="password"]');
-    let repassInput = $('input[name="password_confirmation"]');
-    let nextSpan1 =  $('.input_un');
-    let nextSpan2 =  $('.input_pw');
-    let nextSpan3 =  $('.re_password');
+    let formInputs = _$_$('input:not([type="checkbox"])');
+    let agreeBtn = _$('input[type="checkbox"]');
+    let submitBtn = _$('.form-submit');
+    let agreeErrors = _$('.agree-error');
+    let userInput = _$('input[name="username"]');
+    let passInput = _$('input[name="password"]');
+    let repassInput = _$('input[name="password_confirmation"]');
+    let nextSpan1 =  _$('.input_un');
+    let nextSpan2 =  _$('.input_pw');
+    let nextSpan3 =  _$('.re_password');
 
     for (var formInput of formInputs) {
         formInput.onblur = function (e) {
@@ -546,8 +546,8 @@ function handleSignUp() {
 
 // handle my-info
 function handleMyInfo() {
-    let inputFile = $('input[type="file"]');
-    let imgShow = $('.PMI-wrapper img');
+    let inputFile = _$('input[type="file"]');
+    let imgShow = _$('.PMI-wrapper img');
 
     inputFile.onchange = (e) => {
         const [file] = inputFile.files
@@ -559,8 +559,8 @@ function handleMyInfo() {
 
 // handle change password
 function handleChangePassword() {
-    let wrapper = $('.error__mess-wrapper');
-    let errorMess = $('.error__mess-wrapper span');
+    let wrapper = _$('.error__mess-wrapper');
+    let errorMess = _$('.error__mess-wrapper span');
 
     window.onload = (event) => {
         if(errorMess.innerHTML === '') {
@@ -571,7 +571,7 @@ function handleChangePassword() {
 
 //handle movie-detail
 function handleMovieDetail(){
-    let readMoreBtn = $('.IC-left .read-more');
+    let readMoreBtn = _$('.IC-left .read-more');
     
     readMoreBtn.onclick = () =>{
         let parentRM = readMoreBtn.closest('.IC-left');
