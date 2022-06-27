@@ -82,7 +82,8 @@ public class MyInfoServlet extends HttpServlet {
             part.write(this.getFolderUpload().getAbsolutePath() + File.separator + fileName);
         }
         
-        User_Info ui = new User_Info(0, _user_id, fileName, fullName, email, phone, gender, birth, 0);
+        List<Integer> movieOwn=null;
+        User_Info ui = new User_Info(0, _user_id, fileName, fullName, email, phone, gender, birth, 0, movieOwn);
         urd.updateInfo(ui);
         User_Info uiTmp = urd.getUserInfo(ua.getId());
         session.setAttribute("user_info", uiTmp);

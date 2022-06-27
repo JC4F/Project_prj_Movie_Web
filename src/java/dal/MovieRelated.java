@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import model.Actor;
 import model.Comment;
@@ -64,7 +66,7 @@ public class MovieRelated extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
                 list.add(g);
             }
         } catch (SQLException e) {
@@ -72,6 +74,57 @@ public class MovieRelated extends DBContext {
         }
         return list;
     }
+    
+    // sort movie by type
+    public List<Movie> sortMovieList(List<Movie> listMv, String type){
+        Collections.sort(listMv, new Comparator<Movie>() {
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                if(type.equals("nameUP"))return o1.getName().compareTo(o2.getName());
+                if(type.equals("nameDown"))return -o1.getName().compareTo(o2.getName());
+                if(type.equals("priceUP")) return o1.getPrice() - o2.getPrice();
+                if(type.equals("priceDown")) return o2.getPrice() - o1.getPrice();
+                return 0;
+            }
+        });
+        return listMv;
+    } 
+    
+    // get genre by genreId
+    public Genre getGenreById(int id) {
+        String sql = "select * from genre where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Genre g = new Genre(rs.getInt(1), rs.getString(2));
+                return g;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public ArrayList<String> getStringGenre(List<Genre> listG){
+        ArrayList<String> list = new ArrayList<>();
+        for(Genre g:listG)
+            list.add(g.getGenre_name());
+        return list;
+    }
+    
+    // sort movie by gemre
+    public List<Movie> getMovieByGenre(List<Movie> listMv, List<Genre> listG){
+        List<Movie> listMvRs = new ArrayList<>();
+        for(Movie m: listMv){
+            ArrayList<String> movieGList = getStringGenre(m.getGenre());
+            ArrayList<String> gList = getStringGenre(listG);
+            if(movieGList.containsAll(gList))
+                listMvRs.add(m);
+        }
+        return listMvRs;
+    } 
     
     // get movie follow by num of page
     public List<Movie> getMovieByPage(List<Movie> allM, int start, int end){
@@ -90,7 +143,7 @@ public class MovieRelated extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
                 return g;
             }
         } catch (SQLException e) {
@@ -145,7 +198,7 @@ public class MovieRelated extends DBContext {
                 User_Info a = new User_Info(rs.getInt(1), rs.getInt(2),
                         rs.getString(3), rs.getString(4), rs.getString(5),
                         rs.getString(6), rs.getBoolean(7), rs.getDate(8),
-                        rs.getDouble(9));
+                        rs.getDouble(9), getMovieIdByUserInfoId(rs.getInt(1)));
                 return a;
             }
         } catch (SQLException e) {
@@ -156,7 +209,7 @@ public class MovieRelated extends DBContext {
 
     public List<Genre> getGenreByMovieId(int id) {
         List<Genre> list = new ArrayList<>();
-        String sql = "select genre.* from genre join movie_gender on genre.id = movie_gender._genre_id where movie_gender._movie_id = ?";
+        String sql = "select genre.* from genre join movie_genre on genre.id = movie_genre._genre_id where movie_genre._movie_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -190,7 +243,7 @@ public class MovieRelated extends DBContext {
                 st.setString(1, ("%" + input + "%"));
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
                     list.add(g);
                 }
             } catch (SQLException e) {
@@ -210,7 +263,7 @@ public class MovieRelated extends DBContext {
                 st.setInt(1, inputInt);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
                     list.add(g);
                 }
             } catch (SQLException e) {
@@ -238,7 +291,7 @@ public class MovieRelated extends DBContext {
                 st.setString(5, ("%" + input + "%"));
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
                     list.add(g);
                 }
             } catch (SQLException e) {
@@ -248,5 +301,35 @@ public class MovieRelated extends DBContext {
         }
 
         return null;
+    }
+    
+    // get List id of movie by userinfo id
+    public List<Integer> getMovieIdByUserInfoId(int id){
+        List<Integer> list = new ArrayList<>();
+        String sql = "select  movie_userInfo._movie_id from user_info join movie_userInfo on movie_userInfo._user_info_id = user_info._user_id where user_info._user_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    // get movie list paid
+    public List<Movie> getMoviePaid(List<Integer> UiMovieIdList, List<Movie> mList, String paid){
+        if(paid.equals("false")){
+            return mList;
+        }
+        List<Movie> listMvRs = new ArrayList<>();
+        for(Movie m: mList){
+            if(UiMovieIdList.contains(m.getId()))
+                listMvRs.add(m);
+        }
+        return listMvRs;
     }
 }

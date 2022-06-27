@@ -89,7 +89,7 @@ public class UserRelatedDal extends DBContext{
                 User_Info a = new User_Info(rs.getInt(1), rs.getInt(2), 
                         rs.getString(3), rs.getString(4), rs.getString(5), 
                         rs.getString(6), rs.getBoolean(7), rs.getDate(8), 
-                        rs.getDouble(9));
+                        rs.getDouble(9), getMovieIdByUserInfoId(rs.getInt(1)));
                 return a;
             }
         } catch (SQLException e) {
@@ -127,5 +127,22 @@ public class UserRelatedDal extends DBContext{
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+    
+    // get List id of movie by
+    public List<Integer> getMovieIdByUserInfoId(int id){
+        List<Integer> list = new ArrayList<>();
+        String sql = "select  movie_userInfo._movie_id from user_info join movie_userInfo on movie_userInfo._user_info_id = user_info._user_id where user_info._user_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
 }

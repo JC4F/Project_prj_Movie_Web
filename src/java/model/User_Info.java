@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -16,11 +17,12 @@ public class User_Info {
     private boolean gender;
     private Date birth;
     private double acc_money;
+    private List<Integer> movieOwn;
 
     public User_Info() {
     }
 
-    public User_Info(int id, int user_id, String avatar, String fullname, String email, String phone, boolean gender, Date birth, double acc_money) {
+    public User_Info(int id, int user_id, String avatar, String fullname, String email, String phone, boolean gender, Date birth, double acc_money, List<Integer> movieOwn) {
         this.id = id;
         this.user_id = user_id;
         this.avatar = avatar;
@@ -30,6 +32,7 @@ public class User_Info {
         this.gender = gender;
         this.birth = birth;
         this.acc_money = acc_money;
+        this.movieOwn = movieOwn;
     }
 
     public int getId() {
@@ -103,5 +106,14 @@ public class User_Info {
     public void setAcc_money(double acc_money) {
         this.acc_money = acc_money;
     }
+
+    public List<Integer> getMovieOwn() {
+        return movieOwn;
+    }
+
+    public void setMovieOwn(List<Integer> movieOwn) {
+        this.movieOwn = movieOwn;
+    }
+    
     
 }

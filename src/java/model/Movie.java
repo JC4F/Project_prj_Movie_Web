@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -22,11 +23,12 @@ public class Movie {
     private String src;
     private int numberView;
     private String description;
+    private List<Genre> genre;
 
     public Movie() {
     }
 
-    public Movie(int id, String name, Director director, Date realse_year, int length, String country, int rating, int price, String src, int numberView, String description) {
+    public Movie(int id, String name, Director director, Date realse_year, int length, String country, int rating, int price, String src, int numberView, String description, List<Genre> genre) {
         this.id = id;
         this.name = name;
         this.director = director;
@@ -38,6 +40,7 @@ public class Movie {
         this.src = src;
         this.numberView = numberView;
         this.description = description;
+        this.genre = genre;
     }
 
     public int getId() {
@@ -126,6 +129,14 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Genre> getGenre() {
+        return genre;
+    }
+
+    public void setGenre(List<Genre> genre) {
+        this.genre = genre;
     }
     
     

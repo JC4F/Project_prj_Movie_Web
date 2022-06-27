@@ -26,22 +26,22 @@
                 <form>
                     <button data-toggle="collapse" data-target="#LC-filter">Filter <i class="fas fa-dot-circle"></i></button>
                     <div id="LC-filter" class="collapse">
-                        <input onclick="handelAjax()" type="checkbox" name="isPaid" id="isPaid" value="1">
+                        <input onchange="handleAjaxMain(this)" type="checkbox" name="isPaid" id="isPaid" value="on">
                         <label for="isPaid">Have owned</label>
                     </div>
                     <button data-toggle="collapse" data-target="#LC-sort">Sort By <i class="fas fa-dot-circle"></i></button>
                     <div id="LC-sort" class="collapse">
-                        <select name="sort-select" id="sort-select">
-                            <option value="nameDown">Name &#xf063;</option>
+                        <select name="sort-select" id="sort-select" onchange="handleAjaxMain(this)">
                             <option value="nameUP">Name &#xf062;</option>
-                            <option value="priceDown">Price &#xf063;</option>
+                            <option value="nameDown">Name &#xf063;</option>
                             <option value="priceUP">Price &#xf062;</option>
+                            <option value="priceDown">Price &#xf063;</option>
                         </select>
                     </div>
                     <button data-toggle="collapse" data-target="#LC-choice-list">Type Of Film <i class="fas fa-dot-circle"></i></button>
                     <div id="LC-choice-list" class="collapse">
                         <c:forEach items="${requestScope.listGenre}" var="l">
-                            <input type="checkbox" name="typeOfFilm" id="value${l.id}" value="${l.id}">
+                            <input onchange="handleAjaxMain(this)" type="checkbox" name="typeOfFilm" id="value${l.id}" value="${l.id}">
                             <label for="value${l.id}">${l.genre_name}</label><br/>
                             <hr>
                         </c:forEach>
@@ -50,7 +50,7 @@
             </div>
             <div class="right-content">
                 <div class="RC-search-header">
-                    <form>
+                    <form onsubmit="handleInputSubmit(this)">
                         <select name="RC-search-type">
                             <option value="All">All</option>
                             <option value="Name">Name</option>
