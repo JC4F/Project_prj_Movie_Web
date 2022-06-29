@@ -13,15 +13,17 @@ import java.sql.Date;
 public class Comment {
     private int id;
     private User_Info ui;
+    private Movie movie;
     private String cmt;
     private Date timeCmt;
 
     public Comment() {
     }
 
-    public Comment(int id, User_Info ui, String cmt, Date timeCmt) {
+    public Comment(int id, User_Info ui, Movie movie, String cmt, Date timeCmt) {
         this.id = id;
         this.ui = ui;
+        this.movie = movie;
         this.cmt = cmt;
         this.timeCmt = timeCmt;
     }
@@ -40,6 +42,14 @@ public class Comment {
 
     public void setUi(User_Info ui) {
         this.ui = ui;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
     public String getCmt() {

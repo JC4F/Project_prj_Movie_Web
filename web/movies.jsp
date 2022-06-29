@@ -115,7 +115,6 @@
                 </div>
             </div>
         </div>
-        <!--<input id="hiden" type="hidden" value="${requestScope.listMovie}"-->
         <%@include file="footer.jsp"%> 
     </body>
     <script>

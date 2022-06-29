@@ -1164,6 +1164,7 @@ html {
 #page-movies-box {
     margin-top: 72px;
     display: flex;
+    min-height: 592px;
     .left-content {
         padding-top: 16px;
         width: 250px;
@@ -1342,7 +1343,7 @@ html {
                 display: flex;
                 span {
                     margin-left: auto;
-                    font-weight:400;
+                    font-weight:500;
                 }
                 margin-bottom: 0.5rem;
             }
@@ -1387,6 +1388,7 @@ html {
                 .IF-right {
                     font-size: 1.4rem;
                     .IF-right-wrapper {
+                        cursor: pointer;
                         i.voted {
                             color: yellow;
                         }
@@ -1410,8 +1412,21 @@ html {
                     }
                     span {
                         margin-top: 5px;
+                        color: darkblue;
+                        font-weight: 500;
+                        a {
+                            font-weight: 400;
+                            text-decoration: none;
+                            &:hover {
+                                color: #0056b3;
+                            }
+                        }
+                    }
+                    span.read-more {
                         cursor: pointer;
-                        color: #007bff;
+                        &:hover {
+                            opacity: 0.8;
+                        }
                     }
                 }
                 .IC-left.show {
@@ -1421,6 +1436,7 @@ html {
                     }
                 }
                 .IC-right {
+                    text-align: end;
                     -webkit-box-flex: 0;
                     flex: 0 0 37%;
                     max-width: 37%;
@@ -1505,6 +1521,7 @@ html {
                 .comment-list {
                     .comment-item {
                         display: flex;
+                        margin: 6px 0;
                         img {
                             width: 50px;
                             height: 50px;
@@ -1515,23 +1532,30 @@ html {
                             font-size:1.4rem;
                             p {
                                 margin-top: 0;
-                                margin-bottom: 1rem;
+                                margin-bottom: 0.6rem;
                             }
                             .commnent-react {
+                                cursor: pointer;
                                 i {
                                     font-size: 1.6rem;
                                     margin-right: 5px;
+                                    &:hover {
+                                        opacity: 0.8;
+                                    }
                                 }
                             }
                         }
                     }
                     .load-more {
+                        cursor: pointer;
                         font-size: 1.6rem;
                         text-decoration: none;
                         margin-top: 10px;
                         display: inline-block;
-                        padding:8px 0;
+                        padding:8px 16px;
                         border-radius: 10px;
+                        font-weight: 500;
+                        background-color: #2196f39c;
                     }
                     .load-more:hover {
                         background-color: #ccc;
@@ -1683,6 +1707,7 @@ html {
 // ================ page-shop-card-box =======  
 #page-shop-card-box {
     margin-top: 94px;
+    min-height: 592px;
     h2 {
         font-size: 3.2rem;
         padding-bottom: 10px;
@@ -1785,7 +1810,7 @@ html {
                 }
             }
             .card-film-info {
-                max-width: 34%;
+                width: 34%;
                 h3 {
                     font-size: 2rem;
                     a {

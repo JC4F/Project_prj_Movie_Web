@@ -48,7 +48,7 @@
                             </div>
                             <div class="price-delete-wrapper">
                                 <p>$${c.movie.price}</p>
-                                <span onclick="handleAjaxShopCart(this)" data-id="${c.movie.id}"><i class="fas fa-trash"></i></span>
+                                <span class="trash_delete-cart" onclick="handleAjaxShopCart(this)" data-id="${c.movie.id}"><i class="fas fa-trash"></i></span>
                             </div>
                         </div>
                     </c:forEach>
@@ -58,7 +58,7 @@
                     <p>Toltal: <span>$29.00</span></p>
                 </div>
                 <div class="btn-nav">
-                    <a href="#">CONTINUE SHOPPING</a>
+                    <a href="movies">CONTINUE SHOPPING</a>
                     <a href="#">CHECK OUT</a>
                 </div>
             </div>

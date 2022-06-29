@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
         }
         else {
             session.setAttribute("account", ua);
-            User_Info ui = uad.getUserInfo(ua.getId());
+            User_Info ui = uad.getUserInfoByUser_AccId(ua.getId());
             session.setAttribute("user_info", ui);
             response.sendRedirect("http://localhost:9999/Movie_Web/");
         }

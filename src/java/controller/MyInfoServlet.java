@@ -66,7 +66,7 @@ public class MyInfoServlet extends HttpServlet {
             System.out.println(e);
         }
         String fileName;
-        User_Info oldUser = urd.getUserInfo(_user_id);
+        User_Info oldUser = urd.getUserInfoByUser_AccId(_user_id);
         fileName = oldUser.getAvatar();
         
         Part part = request.getPart("avatar");
@@ -81,7 +81,7 @@ public class MyInfoServlet extends HttpServlet {
         List<Integer> movieOwn=null;
         User_Info ui = new User_Info(0, _user_id, fileName, fullName, email, phone, gender, birth, 0, movieOwn);
         urd.updateInfo(ui);
-        User_Info uiTmp = urd.getUserInfo(ua.getId());
+        User_Info uiTmp = urd.getUserInfoByUser_AccId(ua.getId());
         session.setAttribute("user_info", uiTmp);
         response.sendRedirect("my-info");
     }

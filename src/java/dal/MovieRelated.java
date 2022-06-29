@@ -173,13 +173,13 @@ public class MovieRelated extends DBContext {
     //get comment by movieid
     public List<Comment> getCmtById(int id) {
         List<Comment> list = new ArrayList<>();
-        String sql = "select comment.* from comment join movie_cmt on comment.id = movie_cmt._movie_id where _movie_id = ?";
+        String sql = "select * from comment where _movie_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Comment g = new Comment(rs.getInt(1), getUiByCmtId(rs.getInt(2)), rs.getString(3), rs.getDate(4));
+                Comment g = new Comment(rs.getInt(1), getUiByCmtId(rs.getInt(2)), getMovieById(rs.getInt(3)),rs.getString(4), rs.getDate(5));
                 list.add(g);
             }
         } catch (SQLException e) {
@@ -187,7 +187,32 @@ public class MovieRelated extends DBContext {
         }
         return list;
     }
-
+    
+    //get segment comment
+    public List<Comment> getCmtSegment(List<Comment> allCmt, int start, int end){
+        List<Comment> list = new ArrayList<>();
+        for(int i = start; i<end; i++){
+            list.add(allCmt.get(i));
+        }
+        return list;
+    }
+    
+    //add cmt to dtb
+    public void addCmt(Comment c){
+        String sql = "insert into comment values(?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, c.getUi().getId());
+            st.setInt(2, c.getMovie().getId());
+            st.setString(3, c.getCmt());
+            st.setDate(4, c.getTimeCmt());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    //get Userinfo cmt by movie id
     public User_Info getUiByCmtId(int id) {
         String sql = "Select * from user_info where _user_id = ?";
         try {
@@ -207,6 +232,7 @@ public class MovieRelated extends DBContext {
         return null;
     }
 
+    //get genre by movie id
     public List<Genre> getGenreByMovieId(int id) {
         List<Genre> list = new ArrayList<>();
         String sql = "select genre.* from genre join movie_genre on genre.id = movie_genre._genre_id where movie_genre._movie_id = ?";
@@ -224,6 +250,7 @@ public class MovieRelated extends DBContext {
         return list;
     }
 
+    //get result from search
     public List<Movie> getSearchedMovie(String type, String input) {
         List<Movie> list = new ArrayList<>();
         

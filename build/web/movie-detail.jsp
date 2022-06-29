@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="./css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <script src="./js/jquery-3.6.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
     </head>
@@ -94,13 +95,14 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <button class="btn">
+                        <button class="btn btn_add-to-cart" onclick="handleAjaxShopCart(this)" data-id="${requestScope.movie.id}">
                             <i class="fas fa-shopping-cart"></i>
-                            ADD TO CARD</button>
+                            <span>${requestScope.listId.contains(requestScope.movie.id)?'CANCEL CART':'ADD TO CARD'}</span>
+                        </button>
                     </div>
                     <div class="MD__main-comment">
                         <!-- onclick de hien cmt -->
-                        <h1>Comment (<span>50</span>)</h1>
+                        <h1>Comment (<span>${requestScope.numOfCmt}</span>)</h1>
 
                         <div class="MDM-comment-wrapper">
                             <!-- hien dong cmt cua minh dau tien neu da login/ neu chua thi hien thong bao -->
@@ -109,32 +111,36 @@
                                 <div class="comment-item">
                                     <img src="./images/${sessionScope.user_info.avatar}" alt="avatar">
                                     <div class="comment-item-right">
-                                        <input type="text" name="ms_cmt" placeholder="How do you feel about film...">
+                                        <input data-uiId="${sessionScope.user_info.id}" data-mId="${requestScope.movie.id}" onkeyup="handleAjaxAddCmt(event, this)" type="text" name="ms_cmt" placeholder="How do you feel about film...">
                                         <!-- ranh lam them cai btn binh luan + btn huy -->
                                     </div>
                                 </div>
                             </div>
                             <!-- chua cac cmt -->
                             <div class="comment-list">
-                                <c:forEach items="${requestScope.cmtList}" var="cm" >
-                                    <div class="comment-item">
-                                        <img src="./images/${cm.ui.avatar}" alt="">
-                                        <div class="comment-item-right">
-                                            <p>
-                                                <strong>${cm.ui.fullname}</strong>
-                                                <span>${cm.timeCmt}</span>
-                                            </p>
-                                            <p>${cm.cmt}</p>
-                                            <div class="commnent-react">
-                                                <!-- to mau neu like -->
-                                                <i class="fas fa-thumbs-up"></i>
-                                                <span>1+</span>
+                                <div class="comment__item-wrapper">
+                                    <c:forEach items="${requestScope.cmtList}" var="cm" >
+                                        <div class="comment-item">
+                                            <img src="./images/${cm.ui.avatar}" alt="">
+                                            <div class="comment-item-right">
+                                                <p>
+                                                    <strong>${cm.ui.fullname}</strong>
+                                                    <span>${cm.timeCmt}</span>
+                                                </p>
+                                                <p>${cm.cmt}</p>
+                                                <div class="commnent-react">
+                                                    <!-- to mau neu like -->
+                                                    <i class="fas fa-thumbs-up"></i>
+                                                    <span>1+</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:forEach>
+                                    </c:forEach>
+                                </div>
                                 <!-- load du lieu lay cmt tiep -->
-                                <a href="#" class="load-more">Read Mores</a>
+                                <c:if test="${requestScope.numOfCmt > 2}">
+                                    <span data-id="${requestScope.movie.id}" class="load-more" onclick="handleAjaxLoadCmt(this)">Read Mores</span>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -163,7 +169,7 @@
                                 </div>
                                 <div class="movie-price">
                                     <p>$29.00</p>
-                                    <a href="#">BUY MOVIE</a>
+                                    <span>ADD TO CARD</span>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +193,7 @@
                                 </div>
                                 <div class="movie-price">
                                     <p>$29.00</p>
-                                    <a href="#">BUY MOVIE</a>
+                                    <span>ADD TO CARD</span>
                                 </div>
                             </div>
                         </div>
@@ -211,7 +217,7 @@
                                 </div>
                                 <div class="movie-price">
                                     <p>$29.00</p>
-                                    <a href="#">BUY MOVIE</a>
+                                   <span>ADD TO CARD</span>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +241,7 @@
                                 </div>
                                 <div class="movie-price">
                                     <p>$29.00</p>
-                                    <a href="#">BUY MOVIE</a>
+                                   <span>ADD TO CARD</span>
                                 </div>
                             </div>
                         </div>
@@ -249,5 +255,6 @@
             handleAll();
             handleMovieDetail();
         </script>
+        <script src="./js/ajax.js"></script>
     </body>
 </html>

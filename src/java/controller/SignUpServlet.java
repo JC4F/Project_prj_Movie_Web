@@ -77,7 +77,7 @@ public class SignUpServlet extends HttpServlet {
         uad.addSignUpAcc(username, password);
         User_Acc newAcc = uad.findAcc(username, password);
         uad.addDefaultInfo(newAcc.getId());
-        User_Info ui = uad.getUserInfo(newAcc.getId());
+        User_Info ui = uad.getUserInfoByUser_AccId(newAcc.getId());
         session.setAttribute("account", newAcc);
         session.setAttribute("user_info", ui);
         response.sendRedirect("my-info");

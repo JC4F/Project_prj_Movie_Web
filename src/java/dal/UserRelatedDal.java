@@ -78,12 +78,32 @@ public class UserRelatedDal extends DBContext{
         }
     }
     
-    // get info from dtb to my-info
-    public User_Info getUserInfo(int user_id){
+    // get info by user_acc id
+    public User_Info getUserInfoByUser_AccId(int user_id){
         String sql = "Select * from user_info where _user_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, user_id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                User_Info a = new User_Info(rs.getInt(1), rs.getInt(2), 
+                        rs.getString(3), rs.getString(4), rs.getString(5), 
+                        rs.getString(6), rs.getBoolean(7), rs.getDate(8), 
+                        rs.getDouble(9), getMovieIdByUserInfoId(rs.getInt(1)));
+                return a;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    // get info by user_info id
+    public User_Info getUserInfoByUser_InfoId(int id){
+        String sql = "Select * from user_info where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
                 User_Info a = new User_Info(rs.getInt(1), rs.getInt(2), 

@@ -34,7 +34,6 @@ public class MovieServlet extends HttpServlet {
         CookieHandle chl = new CookieHandle();
         List<Integer> listId = chl.getAllIdList(request);
         List<Genre> listGenre = mrd.getAllGenre();
-//        System.out.println("listId "+listId);
         List<Movie> listMovieTmp = mrd.getAllMovie();
         
         int page, numperpage = 8;
