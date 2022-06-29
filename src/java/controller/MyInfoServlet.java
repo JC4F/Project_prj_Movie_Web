@@ -41,10 +41,6 @@ public class MyInfoServlet extends HttpServlet {
             response.sendRedirect("http://localhost:9999/Movie_Web/");
             return;
         }
-//        UserRelatedDal urd = new UserRelatedDal();
-//        User_Acc ua = (User_Acc) session.getAttribute("account");
-//        User_Info ui = urd.getUserInfo(ua.getId());
-//        request.setAttribute("user_info", ui);
         request.getRequestDispatcher("my-info.jsp").forward(request, response);
     } 
 

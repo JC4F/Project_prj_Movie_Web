@@ -60,7 +60,7 @@
                             <div class="demo-card-film">
                                 <div class="MyCard-header d-flex">
                                     <h6>Shopping Card</h6>
-                                    <a href="./shop-card.jsp">View all card</a>
+                                    <a href="shop-cart">View all card</a>
                                 </div>
                                 <div class="MyCard-content">
                                     <div class="MyCard-content-item">

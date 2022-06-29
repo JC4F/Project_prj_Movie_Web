@@ -60,7 +60,7 @@
                             <option value="Price">Price</option>
                         </select>
                         <div class="RC-search_wrapper">
-                            <input id ="somebutton" type="text" name="RC-ip-search" id="" placeholder="Find ...">
+                            <input onkeydown="handleInputSubmit(event, this)" id ="somebutton" type="text" name="RC-ip-search" id="" placeholder="Find ...">
                         </div>
                     </form>
                 </div>
@@ -90,7 +90,12 @@
                                     </div>
                                     <div class="movie-price">
                                         <p>$${m.price}</p>
-                                        <a href="#">ADD TO CART</a>
+                                        <c:if test="${requestScope.listId!=null && requestScope.listId.contains(m.id)}">
+                                            <span onclick="handleAjaxShopCart(this)" data-id="${m.id}">CANCEL CART</span>
+                                        </c:if>
+                                        <c:if test="${requestScope.listId==null || !requestScope.listId.contains(m.id)}">
+                                            <span onclick="handleAjaxShopCart(this)" data-id="${m.id}">ADD TO CART</span>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>

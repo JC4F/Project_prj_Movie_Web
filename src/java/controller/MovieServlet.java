@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.CookieHandle;
 import dal.MovieRelated;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +14,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
+import model.Cart;
 import model.Genre;
 import model.Movie;
 
@@ -28,7 +31,10 @@ public class MovieServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         MovieRelated mrd = new MovieRelated();
+        CookieHandle chl = new CookieHandle();
+        List<Integer> listId = chl.getAllIdList(request);
         List<Genre> listGenre = mrd.getAllGenre();
+//        System.out.println("listId "+listId);
         List<Movie> listMovieTmp = mrd.getAllMovie();
         
         int page, numperpage = 8;
@@ -47,19 +53,13 @@ public class MovieServlet extends HttpServlet {
         List<Movie> listMovie = mrd.getMovieByPage(listMovieTmp, start, end);
         request.setAttribute("listGenre", listGenre);
         request.setAttribute("listMovie", listMovie);
+        request.setAttribute("listId", listId);
         request.setAttribute("page", page);
         request.setAttribute("num", num);
         
         request.getRequestDispatcher("movies.jsp").forward(request, response);
     } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

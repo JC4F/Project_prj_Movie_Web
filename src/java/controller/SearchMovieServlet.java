@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.CookieHandle;
 import dal.MovieRelated;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -108,6 +109,10 @@ public class SearchMovieServlet extends HttpServlet {
         end = Math.min(page*numperpage, size);
         List<Movie> listMovie = mrd.getMovieByPage(listMovieTmp2, start, end);
         
+        // read cookie
+        CookieHandle chl = new CookieHandle();
+        List<Integer> listId = chl.getAllIdList(request);
+        
         PrintWriter out = response.getWriter();
         searchHeader = "<div class=\"RC-search-header\">\n"
                 + "                    <form>\n"
@@ -120,7 +125,7 @@ public class SearchMovieServlet extends HttpServlet {
                 + "                            <option " + (selectSearch.equals("Price") == true ? "selected" : "") + " value=\"Price\">Price</option>\n"
                 + "                        </select>\n"
                 + "                        <div class=\"RC-search_wrapper\">\n"
-                + "                            <input id =\"somebutton\" type=\"text\" name=\"RC-ip-search\" value=\"" + inputSearch + "\" id=\"\" placeholder=\"Find ...\">\n"
+                + "                            <input onkeydown=\"handleInputSubmit(event, this)\" id =\"somebutton\" type=\"text\" name=\"RC-ip-search\" value=\"" + inputSearch + "\" id=\"\" placeholder=\"Find ...\">\n"
                 + "                        </div>\n"
                 + "                    </form>\n"
                 + "                </div>\n"
@@ -150,7 +155,7 @@ public class SearchMovieServlet extends HttpServlet {
             movieItemMid += "</div>\n"
                     + "<div class=\"movie-price\">\n"
                     + "            <p>$" + m.getPrice() + "</p>\n"
-                    + "            <a href=\"#\">ADD TO CART</a>\n"
+                    + "            <span onclick=\"handleAjaxShopCart(this)\" data-id=\""+m.getId()+"\" >"+(listId.contains(m.getId())?"CANCEL CART":"ADD TO CART")+"</span>\n"
                     + "      </div>\n"
                     + "    </div>\n"
                     + "</div>\n";

@@ -14,11 +14,12 @@
         <group>
             <file>file:/D:/code/prj/Movie_Web/src/java/dal/MovieRelated.java</file>
             <file>file:/D:/code/prj/Movie_Web/web/movies.jsp</file>
+            <file>file:/D:/code/prj/Movie_Web/web/header.jsp</file>
             <file>file:/D:/code/prj/Movie_Web/src/java/controller/MovieServlet.java</file>
-            <file>file:/D:/code/prj/Movie_Web/src/java/controller/MovieDetailServlet.java</file>
-            <file>file:/D:/code/prj/Movie_Web/web/js/script.js</file>
+            <file>file:/D:/code/prj/Movie_Web/web/shop-card.jsp</file>
             <file>file:/D:/code/prj/Movie_Web/src/java/controller/SearchMovieServlet.java</file>
             <file>file:/D:/code/prj/Movie_Web/web/js/ajax.js</file>
+            <file>file:/D:/code/prj/Movie_Web/src/java/controller/ShopCartServlet.java</file>
         </group>
     </open-files>
 </project-private>

@@ -531,3 +531,4 @@ function handleMovieDetail(){
         parentRM.classList.add('show');
     }
 }
+

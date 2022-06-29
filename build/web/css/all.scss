@@ -446,8 +446,14 @@ html {
         }
         p {
             font-size: 1.6rem;
+            line-height: 2rem;
+            height: 2rem;
             color: #b7b7b7;
             margin: 10px 0 16px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
         }
         .description-star {
             padding-bottom: 10px;
@@ -469,15 +475,16 @@ html {
                 color: #000;
                 margin: 0;
             }
-            a {
+            span {
+                display: inline-block;
+                cursor: pointer;
                 text-decoration: none;
                 color: #d81a24;
-                font-size: 18px;
+                font-size: 1.8rem;
                 transition: 0.4s;
                 font-weight: 700;
-                letter-spacing: 0.14em;
             }
-            a:hover {
+            span:hover {
                 color: #000;
             }
         }
@@ -1675,6 +1682,7 @@ html {
 
 // ================ page-shop-card-box =======  
 #page-shop-card-box {
+    margin-top: 94px;
     h2 {
         font-size: 3.2rem;
         padding-bottom: 10px;
@@ -1777,16 +1785,33 @@ html {
                 }
             }
             .card-film-info {
-                max-width: 60%;
+                max-width: 34%;
                 h3 {
                     font-size: 2rem;
                     a {
                         text-decoration: none;
                         color: #000;
+                        line-height: 2.4rem;
+                        height: 2.4rem;
+                        overflow: hidden;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 1;
                     }
                 }
                 p{
-                    font-size:1.4rem;
+                    font-size:1.5rem;
+                    margin-top: 20px;
+                }
+            }
+            .card__film-created {
+                padding: 0px 66px;
+                text-transform: uppercase;
+                h3 {
+                    font-size: 2rem;
+                }
+                p {
+                    font-size: 1.5rem;
                     margin-top: 20px;
                 }
             }
@@ -1800,9 +1825,14 @@ html {
                     display: inline-block;
                     margin-bottom: 0;
                     flex: 1;
+                    text-align: center;
                 }
-                a {
-                    flex: 1;
+                span {
+                    padding: 8px;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.8;
+                    }
                 }
             }
         }
