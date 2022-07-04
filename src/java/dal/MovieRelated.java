@@ -4,6 +4,7 @@
  */
 package dal;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +41,24 @@ public class MovieRelated extends DBContext {
         }
         return list;
     }
+    
+    //get genre by name
+    public List<Genre> getSearchGenre(String input) {
+        List<Genre> list = new ArrayList<>();
+        String sql = "select * from genre where genre_name like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, ("%"+input+"%"));
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Genre g = new Genre(rs.getInt(1), rs.getString(2));
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     //get director by movieid
     public Director getDirecById(int id) {
@@ -66,7 +85,10 @@ public class MovieRelated extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
+                Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), 
+                        rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), 
+                        rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), 
+                        getGenreByMovieId(rs.getInt(1)), getActorById(rs.getInt(1)));
                 list.add(g);
             }
         } catch (SQLException e) {
@@ -118,7 +140,7 @@ public class MovieRelated extends DBContext {
     public List<Movie> getMovieByGenre(List<Movie> listMv, List<Genre> listG){
         List<Movie> listMvRs = new ArrayList<>();
         for(Movie m: listMv){
-            ArrayList<String> movieGList = getStringGenre(m.getGenre());
+            ArrayList<String> movieGList = getStringGenre(m.getGenreL());
             ArrayList<String> gList = getStringGenre(listG);
             if(movieGList.containsAll(gList))
                 listMvRs.add(m);
@@ -143,7 +165,10 @@ public class MovieRelated extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
+                Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), 
+                        rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), 
+                        rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), 
+                        getGenreByMovieId(rs.getInt(1)), getActorById(rs.getInt(1)));
                 return g;
             }
         } catch (SQLException e) {
@@ -155,7 +180,8 @@ public class MovieRelated extends DBContext {
     //get actor by movieid
     public List<Actor> getActorById(int id) {
         List<Actor> list = new ArrayList<>();
-        String sql = "select actor.id, fullname, birth, nationality from actor join movie_actor on actor.id = movie_actor._actor_id where _movie_id = ?";
+        String sql = "select actor.id, fullname, birth, nationality from actor join "
+                + "movie_actor on actor.id = movie_actor._actor_id where _movie_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -235,7 +261,8 @@ public class MovieRelated extends DBContext {
     //get genre by movie id
     public List<Genre> getGenreByMovieId(int id) {
         List<Genre> list = new ArrayList<>();
-        String sql = "select genre.* from genre join movie_genre on genre.id = movie_genre._genre_id where movie_genre._movie_id = ?";
+        String sql = "select genre.* from genre join movie_genre on genre.id = movie_genre._genre_id"
+                + " where movie_genre._movie_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -261,16 +288,21 @@ public class MovieRelated extends DBContext {
             } else if(type.equals("Country")) {
                 sql = "select * from movie where country like ?";
             } else if(type.equals("Actor")) {
-                sql = "select  movie.* from movie join movie_actor on movie.id = movie_actor._movie_id  join actor on actor.id = movie_actor._actor_id where actor.fullname like ?";
+                sql = "select  movie.* from movie join movie_actor on movie.id = movie_actor._movie_id"
+                        + "  join actor on actor.id = movie_actor._actor_id where actor.fullname like ?";
             } else {
-                sql = "select  movie.* from movie join director on movie._director_id = director.id where director.fullname like ?";
+                sql = "select  movie.* from movie join director on movie._director_id = director.id "
+                        + "where director.fullname like ?";
             }
             try {
                 PreparedStatement st = connection.prepareStatement(sql);
                 st.setString(1, ("%" + input + "%"));
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), 
+                        rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), 
+                        rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), 
+                        getGenreByMovieId(rs.getInt(1)), getActorById(rs.getInt(1)));
                     list.add(g);
                 }
             } catch (SQLException e) {
@@ -290,7 +322,10 @@ public class MovieRelated extends DBContext {
                 st.setInt(1, inputInt);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), 
+                        rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), 
+                        rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), 
+                        getGenreByMovieId(rs.getInt(1)), getActorById(rs.getInt(1)));
                     list.add(g);
                 }
             } catch (SQLException e) {
@@ -318,7 +353,10 @@ public class MovieRelated extends DBContext {
                 st.setString(5, ("%" + input + "%"));
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), getGenreByMovieId(rs.getInt(1)));
+                    Movie g = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), 
+                        rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), 
+                        rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), 
+                        getGenreByMovieId(rs.getInt(1)), getActorById(rs.getInt(1)));
                     list.add(g);
                 }
             } catch (SQLException e) {
@@ -333,7 +371,8 @@ public class MovieRelated extends DBContext {
     // get List id of movie by userinfo id
     public List<Integer> getMovieIdByUserInfoId(int id){
         List<Integer> list = new ArrayList<>();
-        String sql = "select  movie_userInfo._movie_id from user_info join movie_userInfo on movie_userInfo._user_info_id = user_info._user_id where user_info._user_id=?";
+        String sql = "select  movie_userInfo._movie_id from user_info join movie_userInfo"
+                + " on movie_userInfo._user_info_id = user_info._user_id where user_info._user_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -358,5 +397,123 @@ public class MovieRelated extends DBContext {
                 listMvRs.add(m);
         }
         return listMvRs;
+    }
+    
+    //get director by director name
+    public List<Director> getDirecByDName(String name) {
+        List<Director> list = new ArrayList<>();
+        String sql = "Select * from director where fullname like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, ("%" + name + "%"));
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Director d = new Director(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
+                list.add(d);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    //get director by director name
+    public List<Actor> getActorByDName(String name) {
+        List<Actor> list = new ArrayList<>();
+        String sql = "Select * from actor where fullname like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, ("%" + name + "%"));
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Actor d = new Actor(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
+                list.add(d);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    //add new movie
+    public void addNewMovie(Movie m) {
+        String sql = "insert into movie values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, m.getName());
+            st.setInt(2, m.getDirector().getId());
+            st.setDate(3, m.getRealse_year());
+            st.setInt(4, m.getLength());
+            st.setString(5, m.getCountry());
+            st.setInt(6, m.getRating());
+            st.setInt(7, m.getPrice());
+            st.setString(8, m.getSrc());
+            st.setInt(9, m.getNumberView());
+            st.setString(10, m.getDescription());
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    //find movie by movie d
+    public Movie getMovie(Movie m) {
+        List<Actor> AList = new ArrayList<>();
+        List<Genre> GList = new ArrayList<>();
+        String sql = "Select * from movie where name=? and _director_id=? and realse_year=? and "
+                + "movie_length=? and country=? and rating_avarage=? and price=? and src=? and number_view=? and description=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, m.getName());
+            st.setInt(2, m.getDirector().getId());
+            st.setDate(3, m.getRealse_year());
+            st.setInt(4, m.getLength());
+            st.setString(5, m.getCountry());
+            st.setInt(6, m.getRating());
+            st.setInt(7, m.getPrice());
+            st.setString(8, m.getSrc());
+            st.setInt(9, m.getNumberView());
+            st.setString(10, m.getDescription());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Movie a = new Movie(rs.getInt(1), rs.getString(2), getDirecById(rs.getInt(3)), 
+                        rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getInt(7), 
+                        rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11), 
+                        GList, AList);
+                return a;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    //update movie-actor and movie-genre
+    public void updataActorAndGenre(Movie m){
+        List<Actor> AList = m.getActorL();
+        for(Actor a: AList){
+            String sql = "insert into movie_actor values(?, ?)";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setInt(1, a.getId());
+                st.setInt(2, m.getId());
+                st.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        
+        List<Genre> GList = m.getGenreL();
+        for(Genre g: GList){
+            String sql = "insert into movie_genre values(?, ?)";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setInt(1, g.getId());
+                st.setInt(2, m.getId());
+                st.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
     }
 }

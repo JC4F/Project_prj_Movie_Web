@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Genre;
 import model.Movie;
+import model.User_Acc;
 import model.User_Info;
 
 /**
@@ -53,6 +54,9 @@ public class SearchMovieServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User_Acc ua = (User_Acc) session.getAttribute("account");
+        
         String selectSearch = request.getParameter("selectSearch");
         String inputSearch = request.getParameter("inputSearch");
         String searchHeader = "", searchContent = "", pagination = "";
@@ -66,7 +70,6 @@ public class SearchMovieServlet extends HttpServlet {
         List<Integer> listMOwn = new ArrayList<>();;
         List<Movie> listMovieTmp1 = new ArrayList<>();
         if(paid==null || paid.equals("")) paid = "false";
-        HttpSession session = request.getSession();
         if(session.getAttribute("user_info")==null){
             listMovieTmp1 = mrd.getMoviePaid(listMOwn, listMovieTmp0, paid);
         } else{
@@ -152,12 +155,17 @@ public class SearchMovieServlet extends HttpServlet {
                     movieItemMid += "<i class=\"fas fa-star\"></i>\n";
                 }
             }
+            String movieItemAction = "<div class=\"movie-action\">\n"
+                    +"             <span><i class=\"fas fa-edit\"></i></span>\n"
+                    +"             <span><i class=\"fas fa-trash-alt\"></i></span>\n"
+                    +"         </div>";
             movieItemMid += "</div>\n"
                     + "<div class=\"movie-price\">\n"
                     + "            <p>$" + m.getPrice() + "</p>\n"
                     + "            <span onclick=\"handleAjaxShopCart(this)\" data-id=\""+m.getId()+"\" >"+(listId.contains(m.getId())?"CANCEL CART":"ADD TO CART")+"</span>\n"
                     + "      </div>\n"
-                    + "    </div>\n"
+                    + ((ua!=null && ua.getRole()==1)? movieItemAction:"")
+                    +"    </div>\n"
                     + "</div>\n";
             searchContent += movieItemAbove + movieItemMid;
         }

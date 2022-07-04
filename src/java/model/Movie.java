@@ -23,12 +23,13 @@ public class Movie {
     private String src;
     private int numberView;
     private String description;
-    private List<Genre> genre;
+    private List<Genre> genreL;
+    private List<Actor> actorL;
 
     public Movie() {
     }
 
-    public Movie(int id, String name, Director director, Date realse_year, int length, String country, int rating, int price, String src, int numberView, String description, List<Genre> genre) {
+    public Movie(int id, String name, Director director, Date realse_year, int length, String country, int rating, int price, String src, int numberView, String description, List<Genre> genreL, List<Actor> actorL) {
         this.id = id;
         this.name = name;
         this.director = director;
@@ -40,7 +41,8 @@ public class Movie {
         this.src = src;
         this.numberView = numberView;
         this.description = description;
-        this.genre = genre;
+        this.genreL = genreL;
+        this.actorL = actorL;
     }
 
     public int getId() {
@@ -131,12 +133,20 @@ public class Movie {
         this.description = description;
     }
 
-    public List<Genre> getGenre() {
-        return genre;
+    public List<Genre> getGenreL() {
+        return genreL;
     }
 
-    public void setGenre(List<Genre> genre) {
-        this.genre = genre;
+    public void setGenreL(List<Genre> genreL) {
+        this.genreL = genreL;
+    }
+
+    public List<Actor> getActorL() {
+        return actorL;
+    }
+
+    public void setActorL(List<Actor> actorL) {
+        this.actorL = actorL;
     }
     
     

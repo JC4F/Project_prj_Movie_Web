@@ -172,7 +172,7 @@ function handleAjaxLoadCmt(element) {
     let numOfCmt = document.querySelectorAll('.comment-list .comment-item').length;
     let filmId = element.dataset.id;
     let parameters = {numOfCmt, filmId, action: 'load'}
-    
+
     $.ajax({
         url: "/Movie_Web/movie-detail",
         type: "post", //send it through get method
@@ -181,15 +181,14 @@ function handleAjaxLoadCmt(element) {
             // khai bao bien kieu nay ~ JSON.stringify()
             let dataString = JSON.stringify(data)
             let dataLoadPos = document.querySelector('.comment__item-wrapper')
-            if(dataString.indexOf('no-more')>-1){
+            if (dataString.indexOf('no-more') > -1) {
 //                console.log(dataString);
                 let newData = dataString.replace("|no-more", "")
                 dataLoadPos.innerHTML += JSON.parse(newData)
-                
+
                 let elementPar = element.closest('.comment-list')
                 elementPar.removeChild(element)
-            }
-            else{
+            } else {
                 dataLoadPos.innerHTML += data
             }
         },
@@ -199,31 +198,151 @@ function handleAjaxLoadCmt(element) {
     });
 }
 function handleAjaxAddCmt(e, element) {
-    if(e.key == 'Enter'){
+    if (e.key == 'Enter') {
         let inputCmt = element.value;
         let uiId = element.dataset.uiid
         let mId = element.dataset.mid
-        let parameters = {inputCmt, uiId, mId, action:'add'}
-        
+        let parameters = {inputCmt, uiId, mId, action: 'add'}
+
 //        console.log(parameters)
         $.ajax({
-        url: "/Movie_Web/movie-detail",
+            url: "/Movie_Web/movie-detail",
+            type: "post", //send it through get method
+            data: parameters,
+            success: function (data) {
+                let dataLoadPos = document.querySelector('.comment__item-wrapper')
+                dataLoadPos.innerHTML = data + dataLoadPos.innerHTML
+                element.value = ''
+                CountCmtAfterAdd()
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+}
+function CountCmtAfterAdd() {
+    let countPos = document.querySelector('.MD__main-comment h1 span')
+    let preCount = countPos.innerHTML
+    countPos.innerHTML = Number(preCount) + 1
+}
+
+//admin-add-movie=============
+function handleAjaxSearchDirector(element) {
+    let action = "search-director"
+    let inputSearch = element.value
+    let parameters = {action, inputSearch}
+
+    $.ajax({
+        url: "/Movie_Web/admin-addmovie",
         type: "post", //send it through get method
         data: parameters,
         success: function (data) {
-            let dataLoadPos = document.querySelector('.comment__item-wrapper')
-            dataLoadPos.innerHTML = data + dataLoadPos.innerHTML
-            element.value=''
-            CountCmtAfterAdd()
+            var row = document.querySelector("#director-data .customm-tableBody");
+            row.innerHTML = data;
         },
         error: function (xhr) {
             //Do Something to handle error
         }
     });
-    }
 }
-function CountCmtAfterAdd(){
-    let countPos = document.querySelector('.MD__main-comment h1 span')
-    let preCount = countPos.innerHTML
-    countPos.innerHTML = Number(preCount) + 1
+
+function handleAjaxSearchActor(element) {
+    let action = "search-actor"
+    let inputSearch = element.value
+    let parameters = {action, inputSearch}
+
+    $.ajax({
+        url: "/Movie_Web/admin-addmovie",
+        type: "post", //send it through get method
+        data: parameters,
+        success: function (data) {
+            var row = document.querySelector("#actor-data .customm-tableBody");
+            row.innerHTML = data;
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
+}
+
+function handleAjaxSearchGenre(element) {
+    let action = "search-genre"
+    let inputSearch = element.value
+    let parameters = {action, inputSearch}
+
+    $.ajax({
+        url: "/Movie_Web/admin-addmovie",
+        type: "post", //send it through get method
+        data: parameters,
+        success: function (data) {
+            var row = document.querySelector("#genre-data .customm-tableBody");
+            row.innerHTML = data;
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
+}
+
+function getData(element) {
+    let result = ''
+    for (let i = 0; i < element.length; i++) {
+        result += element[i].innerHTML
+        result += i !== element.length - 1 ? ':' : ''
+    }
+    return result
+}
+function sendData(path, parameters, method = 'post') {
+
+    const form = document.createElement('form');
+    form.method = method;
+    form.action = path;
+    document.body.appendChild(form);
+
+    for (const key in parameters) {
+        const formField = document.createElement('input');
+        formField.type = 'hidden';
+        formField.name = key;
+        formField.value = parameters[key];
+
+        form.appendChild(formField);
+    }
+    form.submit();
+}
+function handleSubmitAddMovie() {
+    let btnSubmit = _$('.col-sm-10 > button')
+
+    btnSubmit.onclick = () => {
+        let movieName = _$('input[name="name"]').value
+        let realseYear = _$('input[name="RealseYear"]').value
+        let length = _$('input[name="Length"]').value
+        let country = _$('input[name="Country"]').value
+        let rating = _$('input[name="Rating"]').value
+        let price = _$('input[name="Price"]').value
+        let src = _$('input[name="Src"]').value
+        let description = _$('input[name="Description"]').value
+
+        let directorContainerdata = _$_$('#director-data .Result-infoWraper p')
+        let directorData = getData(directorContainerdata)
+
+        let actorContainedataBox = _$_$('#actor-data .Result-infoWraper')
+        let actorData = []
+        for (let actorContainerData of actorContainedataBox) {
+            actorData.push(getData(actorContainerData.querySelectorAll('p')))
+        }
+
+        let genreContainedataBox = _$_$('#genre-data .Result-infoWraper')
+        let genreData = []
+        for(let genreContainerData of genreContainedataBox){
+            genreData.push(getData(genreContainerData.querySelectorAll('p')))
+        }
+        
+        let parameters = {movieName, realseYear, length, country, rating, price, src, 
+            description, directorData, genreData: genreData.join("|"), actorData: actorData.join("|"), action:'add-movie'}
+
+//        console.log(parameters) 
+        
+        sendData('admin-addmovie', parameters)
+    }
 }

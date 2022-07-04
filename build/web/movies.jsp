@@ -97,6 +97,12 @@
                                             <span onclick="handleAjaxShopCart(this)" data-id="${m.id}">ADD TO CART</span>
                                         </c:if>
                                     </div>
+                                    <c:if test="${sessionScope.account.role==1}">
+                                        <div class="movie-action">
+                                            <span><i class="fas fa-edit"></i></span>
+                                            <span><i class="fas fa-trash-alt"></i></span>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </c:forEach>
