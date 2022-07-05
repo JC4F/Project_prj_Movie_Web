@@ -13,20 +13,21 @@
             <url>src/java/model/User_Acc.java</url>
             <bookmark id="1">
                 <name/>
-                <line>36</line>
+                <line>14</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/code/prj/Movie_Web/src/java/controller/AdminAddMovieServlet.java</file>
-            <file>file:/D:/code/prj/Movie_Web/src/java/dal/ActorHandle.java</file>
+            <file>file:/D:/code/prj/Movie_Web/src/java/dal/MovieRelated.java</file>
+            <file>file:/D:/code/prj/Movie_Web/web/movies.jsp</file>
+            <file>file:/D:/code/prj/Movie_Web/web/admin-handle-acc.jsp</file>
             <file>file:/D:/code/prj/Movie_Web/src/java/dal/UserRelatedDal.java</file>
-            <file>file:/D:/code/prj/Movie_Web/src/java/model/Movie.java</file>
             <file>file:/D:/code/prj/Movie_Web/web/js/script.js</file>
+            <file>file:/D:/code/prj/Movie_Web/src/java/controller/SearchMovieServlet.java</file>
+            <file>file:/D:/code/prj/Movie_Web/src/java/controller/AdminHandleAccServlet.java</file>
             <file>file:/D:/code/prj/Movie_Web/web/js/ajax.js</file>
-            <file>file:/D:/code/prj/Movie_Web/web/admin-add-movie.jsp</file>
         </group>
     </open-files>
 </project-private>

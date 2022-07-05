@@ -26,7 +26,7 @@
                                 <i class="fas fa-caret-right"></i>
                                 <span>Add movie</span>
                             </a></li>
-                        <li><a href="admin-handleUDmovie">
+                        <li><a href="movies">
                                 <i class="fas fa-caret-right"></i>
                                 <span>HandleUD movie</span>
                             </a></li>
@@ -43,11 +43,11 @@
                         </div>
                     </button>
                     <ul class="dropdown-manager">
-                        <li><a href="admin-handleAcc.html">
+                        <li><a href="admin-handleacc">
                                 <i class="fas fa-caret-right"></i>
                                 <span>Block account</span>
                             </a></li>
-                        <li><a href="admin-handleAcc.html">
+                        <li><a href="admin-handleacc">
                                 <i class="fas fa-caret-right"></i>
                                 <span>UnBlock account</span>
                             </a></li>

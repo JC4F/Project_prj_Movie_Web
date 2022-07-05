@@ -379,7 +379,7 @@
                             </div>
                             <div class="movie-price">
                                 <p>$29.00</p>
-                                <a href="#">BUY MOVIE</a>
+                                <span>ADD TO CARD</span>
                             </div>
                         </div>
                     </div>
@@ -403,7 +403,7 @@
                             </div>
                             <div class="movie-price">
                                 <p>$29.00</p>
-                                <a href="#">BUY MOVIE</a>
+                                <span>ADD TO CARD</span>
                             </div>
                         </div>
                     </div>
@@ -427,7 +427,7 @@
                             </div>
                             <div class="movie-price">
                                 <p>$29.00</p>
-                                <a href="#">BUY MOVIE</a>
+                                <span>ADD TO CARD</span>
                             </div>
                         </div>
                     </div>
@@ -451,7 +451,7 @@
                             </div>
                             <div class="movie-price">
                                 <p>$29.00</p>
-                                <a href="#">BUY MOVIE</a>
+                                <span>ADD TO CARD</span>
                             </div>
                         </div>
                     </div>

@@ -317,7 +317,7 @@
         <script>
             handleAll();
             handleAdmin();
-            handleSubmitAddMovie();
+            handleSubmitAddMovie('add');
         </script>
     </body>
 </html>

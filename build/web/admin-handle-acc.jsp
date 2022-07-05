@@ -33,13 +33,13 @@
                     </div>
                     <div class="main-form">
                         <div class="search-wrapper">
-                            <select class="custom-select custom__own-select custom-label-ip" id="inputGroupSelect01">
-                                <option value="0" selected>All</option>
-                                <option value="1">Block</option>
-                                <option value="2">Unblock</option>
+                            <select class="custom-select custom__own-select custom-label-ip" id="inputGroupSelect01" onchange="handleAjaxSearchAcc(this)">
+                                <option value="All" selected>All</option>
+                                <option value="Block">Block</option>
+                                <option value="Unblock">Unblock</option>
                             </select>
                             <input class="form-control custom-label-ip custom-search" id="search-info" type="text"
-                                   placeholder="Search..">
+                                   placeholder="Search.." onkeyup="handleAjaxSearchAcc(this)">
                         </div>
                         <div class="result_acc-wrapper">
                             <table class="table table-striped table-hover custom-label-ip">
@@ -56,143 +56,13 @@
                                     </tr>
                                 </thead>
                                 <tbody class="customm-tableBody">
-                                    <tr onclick="">
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
 
-                            <nav aria-label="Page navigation">
+                            <nav id="pagination" aria-label="Page navigation">
                                 <ul class="pagination custom-nav">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </nav>
                         </div>

@@ -184,10 +184,10 @@ public class AdminAddMovieServlet extends HttpServlet {
             Movie movie = mrd.getMovie(movieTmp);
             movie.setGenreL(GList);
             movie.setActorL(AList);
-            mrd.updataActorAndGenre(movie);
+            mrd.addActorAndGenre(movie);
             
 //            out.println(movie.getId()+"|"+movie.getName());
-            response.sendRedirect("movies");
+            response.sendRedirect("movie-detail?id="+movie.getId());
         }
 
     }

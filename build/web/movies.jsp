@@ -90,17 +90,22 @@
                                     </div>
                                     <div class="movie-price">
                                         <p>$${m.price}</p>
-                                        <c:if test="${requestScope.listId!=null && requestScope.listId.contains(m.id)}">
-                                            <span onclick="handleAjaxShopCart(this)" data-id="${m.id}">CANCEL CART</span>
+                                        <c:if test="${sessionScope.user_info.movieOwn.contains(m.id)}">
+                                            <span class="movie-paid">PAID</span>
                                         </c:if>
-                                        <c:if test="${requestScope.listId==null || !requestScope.listId.contains(m.id)}">
-                                            <span onclick="handleAjaxShopCart(this)" data-id="${m.id}">ADD TO CART</span>
+                                        <c:if test="${!sessionScope.user_info.movieOwn.contains(m.id)}">
+                                            <c:if test="${requestScope.listId!=null && requestScope.listId.contains(m.id)}">
+                                                <span onclick="handleAjaxShopCart(this)" data-id="${m.id}">CANCEL CART</span>
+                                            </c:if>
+                                            <c:if test="${requestScope.listId==null || !requestScope.listId.contains(m.id)}">
+                                                <span onclick="handleAjaxShopCart(this)" data-id="${m.id}">ADD TO CART</span>
+                                            </c:if>
                                         </c:if>
                                     </div>
                                     <c:if test="${sessionScope.account.role==1}">
                                         <div class="movie-action">
-                                            <span><i class="fas fa-edit"></i></span>
-                                            <span><i class="fas fa-trash-alt"></i></span>
+                                            <span data-id="${m.id}" onclick="handleGetDataUpdate(this)"><i class="fas fa-edit"></i></span>
+                                            <span data-id="${m.id}" onclick="handleGetDataDelete(this)"><i class="fas fa-trash-alt"></i></span>
                                         </div>
                                     </c:if>
                                 </div>
@@ -124,7 +129,6 @@
         <%@include file="footer.jsp"%> 
     </body>
     <script>
-        handleMovies();
         handleAll();
         preventDefaultSubmit();
     </script>

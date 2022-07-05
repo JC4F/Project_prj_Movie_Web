@@ -54,14 +54,13 @@ function handleIndex() {
         // console.log(dotBtn.dataset.index)
         dotBtn.addEventListener("click", () => {
             counter = dotBtn.dataset.index;
-
             for (let dotBtnTemp of dotBtns) {
                 dotBtnTemp.classList.remove("active");
             }
             dotBtn.classList.add("active");
 
             sliderItem.style.transition = "transform 0.4s ease-in-out";
-            sliderItem.style.transform = `translateX(_${-((2 * counter) * oneSlider)}px)`;
+            sliderItem.style.transform = `translateX(${-((2 * counter) * oneSlider)}px)`;
         })
     }
 
@@ -71,7 +70,7 @@ function handleIndex() {
     let startP, currentP;
 
     // an cai clone cuoi khi xuat hien
-    sliderItem.style.transform = `translateX(_${-(2 * oneSlider)}px)`;
+    sliderItem.style.transform = `translateX(${-(2 * oneSlider)}px)`;
 
     function getTranslateX() {
         var style = window.getComputedStyle(sliderItem);
@@ -104,29 +103,31 @@ function handleIndex() {
 
     sliderItem.addEventListener("mousemove", (e) => {
         e.preventDefault();
-        if (!isPress) return;
+        if (!isPress)
+            return;
         currentP = e.screenX - startP;
 
-        sliderItem.style.transform = `translateX(_${currentP}px)`;
+        sliderItem.style.transform = `translateX(${currentP}px)`;
         handleMousemove(e);
     })
 
     body.addEventListener("mousemove", (e) => {
         e.preventDefault();
-        if (!isPress) return;
+        if (!isPress)
+            return;
         currentP = e.screenX - startP;
 
-        sliderItem.style.transform = `translateX(_${currentP}px)`;
+        sliderItem.style.transform = `translateX(${currentP}px)`;
         handleMousemove(e);
     })
 
     function handleMousemove(e) {
         if (getTranslateX() >= 0) {
-            sliderItem.style.transform = `translateX(_${-(size - 4) * oneSlider}px)`;
+            sliderItem.style.transform = `translateX(${-(size - 4) * oneSlider}px)`;
             startP = e.screenX - getTranslateX();
         }
         if (-getTranslateX() >= (sliderItem.clientWidth - 2 * oneSlider)) {
-            sliderItem.style.transform = `translateX(_${-(2) * oneSlider}px)`;
+            sliderItem.style.transform = `translateX(${-(2) * oneSlider}px)`;
             startP = e.screenX - getTranslateX();
         }
     }
@@ -165,11 +166,10 @@ function handleIndex() {
         // handlde transform
         if (i % 2 === 0) {
             // counter=i/2;
-            sliderItem.style.transform = `translateX(_${-(i) * halfOfWidth}px)`;
-        }
-        else {
+            sliderItem.style.transform = `translateX(${-(i) * halfOfWidth}px)`;
+        } else {
             // counter=(i-1)/2;
-            sliderItem.style.transform = `translateX(_${-(i - 1) * halfOfWidth}px)`;
+            sliderItem.style.transform = `translateX(${-(i - 1) * halfOfWidth}px)`;
         }
     }
 
@@ -181,14 +181,14 @@ function handleIndex() {
         if (startPSlide == -(size - 2) * oneSlider) {
             startPSlide = -2 * oneSlider;
             sliderItem.style.transition = "none";
-            sliderItem.style.transform = `translateX(_${startPSlide}px)`;
+            sliderItem.style.transform = `translateX(${startPSlide}px)`;
         }
     })
     setInterval(() => {
         if (!isPress) {
             startPSlide -= oneSlider;
             sliderItem.style.transition = "transform 0.4s ease-in-out";
-            sliderItem.style.transform = `translateX(_${startPSlide}px)`;
+            sliderItem.style.transform = `translateX(${startPSlide}px)`;
         }
     }, 3000);
 
@@ -200,10 +200,11 @@ function handleIndex() {
         for (let movieControlled of movieControlleds) {
             if (movieControlled.classList.contains(selector)) {
                 movieControlled.style.display = 'block';
-            }
-            else movieControlled.style.display = 'none';
+            } else
+                movieControlled.style.display = 'none';
         }
-    };
+    }
+    ;
     filterMovies('top_rate');
     function btnRemoveClassActive() {
         for (let btnController of btnControllers) {
@@ -249,7 +250,7 @@ function handleIndex() {
         T_interval = true;
         T_sliderSpace += T_oneReviewer;
         T_container.style.transition = "transform 0.4s ease-in-out";
-        T_container.style.transform = `translateX(_${-(T_sliderSpace)}px)`;
+        T_container.style.transform = `translateX(${-(T_sliderSpace)}px)`;
     }
     // truot slide
     T_id = setInterval(T_moveSlide, 3000);
@@ -301,18 +302,19 @@ function handleIndex() {
 
     function T_handleMousemove(e) {
         e.preventDefault();
-        if (!T_pressed) return;
+        if (!T_pressed)
+            return;
         T_currentP = e.screenX - T_startP;
-        T_container.style.transform = `translateX(_${T_currentP}px)`;
+        T_container.style.transform = `translateX(${T_currentP}px)`;
 
         let y = T_getTranslateX();
         if (y >= 0) {
-            T_container.style.transform = `translateX(_${(300 * y) / (300 + y)}px)`;
+            T_container.style.transform = `translateX(${(300 * y) / (300 + y)}px)`;
             T_startP = e.screenX - y;
         }
         if (-y >= (T_container.clientWidth - T_show.clientWidth)) {
             let k = -y - (T_container.clientWidth - T_show.clientWidth);
-            T_container.style.transform = `translateX(-_${(T_container.clientWidth - T_show.clientWidth + (300 * k) / (k + 300))}px)`;
+            T_container.style.transform = `translateX(-${(T_container.clientWidth - T_show.clientWidth + (300 * k) / (k + 300))}px)`;
             T_startP = e.screenX - y;
         }
     }
@@ -337,12 +339,12 @@ function handleIndex() {
         // handlde transform
         if (i % 2 === 0) {
             // counter=i/2;
-            if (i >= 8) i = 8;
-            T_container.style.transform = `translateX(_${-(i) * halfOfWidth}px)`;
-        }
-        else {
+            if (i >= 8)
+                i = 8;
+            T_container.style.transform = `translateX(${-(i) * halfOfWidth}px)`;
+        } else {
             // counter=(i-1)/2;
-            T_container.style.transform = `translateX(_${-(i - 1) * halfOfWidth}px)`;
+            T_container.style.transform = `translateX(${-(i - 1) * halfOfWidth}px)`;
         }
         // console.log(i)
         if (!T_interval && T_sliderSpace < T_oneReviewer * (4)) {
@@ -358,44 +360,8 @@ function handleIndex() {
                 T_interval = false;
                 clearInterval(T_id);
             }
-            T_container.style.transform = `translateX(-_${(T_dotItem.dataset.index - 1) * 2 * T_oneReviewer}px)`;
+            T_container.style.transform = `translateX(-${(T_dotItem.dataset.index - 1) * 2 * T_oneReviewer}px)`;
         })
-    }
-}
-
-//movies.html
-function handleMovies() {
-
-    //handle submitform
-    let formSearch = _$('.RC-search-header form');
-    let selectSearch = _$('.RC-search-header select');
-    let inputSearch = _$('.RC-search-header input');
-//    formSearch.onkeydown = (e) => {
-//        if(e.key == 'Enter'){
-//            const parameters = {
-//                selectSearch: selectSearch.value,
-//                inputSearch: inputSearch.value
-//            }
-//            sendData('search-movie', parameters)
-//        }
-//    }
-    
-    function sendData(path, parameters, method = 'post') {
-
-        const form = document.createElement('form');
-        form.method = method;
-        form.action = path;
-        document.body.appendChild(form);
-
-        for (const key in parameters) {
-            const formField = document.createElement('input');
-            formField.type = 'hidden';
-            formField.name = key;
-            formField.value = parameters[key];
-
-            form.appendChild(formField);
-        }
-        form.submit();
     }
 }
 
@@ -409,8 +375,8 @@ function handleLogin() {
         formInput.onblur = function (e) {
             if (e.target.value) {
                 this.parentElement.classList.add('has-text');
-            }
-            else this.parentElement.classList.remove('has-text');
+            } else
+                this.parentElement.classList.remove('has-text');
         }
     }
 
@@ -432,19 +398,19 @@ function handleSignUp() {
     let userInput = _$('input[name="username"]');
     let passInput = _$('input[name="password"]');
     let repassInput = _$('input[name="password_confirmation"]');
-    let nextSpan1 =  _$('.input_un');
-    let nextSpan2 =  _$('.input_pw');
-    let nextSpan3 =  _$('.re_password');
+    let nextSpan1 = _$('.input_un');
+    let nextSpan2 = _$('.input_pw');
+    let nextSpan3 = _$('.re_password');
 
     for (var formInput of formInputs) {
         formInput.onblur = function (e) {
             if (e.target.value) {
                 this.parentElement.classList.add('has-text');
-            }
-            else this.parentElement.classList.remove('has-text');
+            } else
+                this.parentElement.classList.remove('has-text');
         }
     }
-    
+
     userInput.oninput = function () {
         nextSpan1.innerHTML = '';
     }
@@ -468,8 +434,8 @@ function handleSignUp() {
         }
         agreeErrors.innerHTML = 'Agree Terms of Service to create a new account'
         agreeErrors.animate([
-            { transform: 'translateX(-4px)' },
-            { transform: 'translateX(4px)' }
+            {transform: 'translateX(-4px)'},
+            {transform: 'translateX(4px)'}
         ], {
             duration: 200,
             iterations: 2,
@@ -496,7 +462,6 @@ function handleSignUp() {
     }
 }
 
-
 // handle my-info
 function handleMyInfo() {
     let inputFile = _$('input[type="file"]');
@@ -516,17 +481,17 @@ function handleChangePassword() {
     let errorMess = _$('.error__mess-wrapper span');
 
     window.onload = (event) => {
-        if(errorMess.innerHTML === '') {
+        if (errorMess.innerHTML === '') {
             wrapper.style.display = 'none';
         }
     };
 }
 
 //handle movie-detail
-function handleMovieDetail(){
+function handleMovieDetail() {
     let readMoreBtn = _$('.IC-left .read-more');
-    
-    readMoreBtn.onclick = () =>{
+
+    readMoreBtn.onclick = () => {
         let parentRM = readMoreBtn.closest('.IC-left');
         parentRM.classList.add('show');
     }
@@ -537,11 +502,11 @@ function handleScroll(element, parentSelector) {
     let parentElement = element.closest(parentSelector);
     parentElement.classList.toggle('show')
     var content = element.nextElementSibling;
-    if (content.style.maxHeight){
+    if (content.style.maxHeight) {
         content.style.maxHeight = null;
     } else {
         content.style.maxHeight = content.scrollHeight + "px";
-    } 
+    }
 }
 
 function handleAdmin() {
@@ -552,14 +517,14 @@ function handleAdmin() {
     //handle sidebarScroll
     btnMovieManagement.onclick = () => {
         handleScroll(btnMovieManagement, '.movie-side')
-    }   
+    }
     btnAccountManagement.onclick = () => {
         handleScroll(btnAccountManagement, '.account-side')
-    }   
+    }
 
     //handle director, actor
-    for (let radioChoice of radioChoices){
-        radioChoice.onclick = function(e) {
+    for (let radioChoice of radioChoices) {
+        radioChoice.onclick = function (e) {
             let parentElement = this.closest('.form-group')
             parentElement.classList = `form-group row ${e.target.dataset.type}`
         }
@@ -567,46 +532,45 @@ function handleAdmin() {
 
 }
 
-function handleFind(element, type){
+function handleFind(element, type) {
     let id = element.querySelector('th').innerHTML
     let fullName = element.querySelectorAll('td')[0].innerHTML
     let resultShow = element.closest('.form-group').querySelector('.result-wrapper')
 
-    if(type !== 'genre'){
+    if (type !== 'genre') {
         let birth = element.querySelectorAll('td')[1].innerHTML
         let country = element.querySelectorAll('td')[2].innerHTML
 
         procesData(resultShow, type, id, fullName, birth, country)
-    }
-    else
+    } else
         procesData(resultShow, type, id, fullName)
 }
 
-function handleAdd(element, type){
+function handleAdd(element, type) {
     let addParent = element.closest('.Add-Nwrapper')
     let fullName = addParent.querySelectorAll('input')[0].value
     let resultShow = element.closest('.form-group').querySelector('.result-wrapper')
 
-    if(type !== 'genre'){
+    if (type !== 'genre') {
         let birth = addParent.querySelectorAll('input')[1].value
         let country = addParent.querySelectorAll('input')[2].value
-    
+
         procesData(resultShow, type, 'None', fullName, birth, country)
-    }
-    else
+    } else
         procesData(resultShow, type, 'None', fullName)
 }
 
 function procesData(Pos, type, id, fullName, birth, country) {
-    if(checkDuplicate(Pos, type, id, fullName, birth, country)) return;
+    if (checkDuplicate(Pos, type, id, fullName, birth, country))
+        return;
     let dataTmp = ``
-    if(type !== 'genre'){
+    if (type !== 'genre') {
         dataTmp = `<p>${id}</p>
         <p>${fullName}</p>
         <p>${birth}</p>
         <p>${country}</p>`
-    }
-    else dataTmp = `<p>${id}</p>
+    } else
+        dataTmp = `<p>${id}</p>
             <p>${fullName}</p>`
     let data = `<div
             class="alert alert-warning alert-dismissible fade show custom-label-ip mt-3 result-item"
@@ -619,34 +583,111 @@ function procesData(Pos, type, id, fullName, birth, country) {
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>`
-    if(type == 'director')
+    if (type == 'director')
         Pos.innerHTML = data
-    else if(type == 'actor')
+    else if (type == 'actor')
         Pos.innerHTML += data
-    else if(type == 'genre')
+    else if (type == 'genre')
         Pos.innerHTML += data
 }
 
-function checkDuplicate(Pos, type, id, fullName, birth, country){
+function checkDuplicate(Pos, type, id, fullName, birth, country) {
     let resultList = Pos.querySelectorAll('.result-item')
     let arr = Array.from(resultList).map((cur, index) => {
         let infoList = cur.querySelectorAll('.Result-infoWraper p')
         let infoResult = ''
-        for(let infoItem of infoList){
-            infoResult += infoItem.innerHTML+'-'
+        for (let infoItem of infoList) {
+            infoResult += infoItem.innerHTML + '-'
         }
         return infoResult
     })
 
-    if(type !== 'genre'){
-        if(arr.includes(id+'-'+fullName+'-'+birth+'-'+country+'-'))
+    if (type !== 'genre') {
+        if (arr.includes(id + '-' + fullName + '-' + birth + '-' + country + '-'))
             return true;
-    }
-    else {
-        if(arr.includes(id+'-'+fullName+'-'))
-        return true;
+    } else {
+        if (arr.includes(id + '-' + fullName + '-'))
+            return true;
     }
 
     return false;
 }
 
+function getData(element) {
+    let result = ''
+    for (let i = 0; i < element.length; i++) {
+        result += element[i].innerHTML
+        result += i !== element.length - 1 ? ':' : ''
+    }
+    return result
+}
+function sendData(path, parameters, method = 'post') {
+
+    const form = document.createElement('form');
+    form.method = method;
+    form.action = path;
+    document.body.appendChild(form);
+
+    for (const key in parameters) {
+        const formField = document.createElement('input');
+        formField.type = 'hidden';
+        formField.name = key;
+        formField.value = parameters[key];
+
+        form.appendChild(formField);
+    }
+    form.submit();
+}
+function handleSubmitAddMovie(type) {
+    let btnSubmit = _$('.col-sm-10 > button')
+
+    btnSubmit.onclick = () => {
+        let movieName = _$('input[name="name"]').value
+        let realseYear = _$('input[name="RealseYear"]').value
+        let length = _$('input[name="Length"]').value
+        let country = _$('input[name="Country"]').value
+        let rating = _$('input[name="Rating"]').value
+        let price = _$('input[name="Price"]').value
+        let src = _$('input[name="Src"]').value
+        let description = _$('input[name="Description"]').value
+
+        let directorContainerdata = _$_$('#director-data .Result-infoWraper p')
+        let directorData = getData(directorContainerdata)
+
+        let actorContainedataBox = _$_$('#actor-data .Result-infoWraper')
+        let actorData = []
+        for (let actorContainerData of actorContainedataBox) {
+            actorData.push(getData(actorContainerData.querySelectorAll('p')))
+        }
+
+        let genreContainedataBox = _$_$('#genre-data .Result-infoWraper')
+        let genreData = []
+        for(let genreContainerData of genreContainedataBox){
+            genreData.push(getData(genreContainerData.querySelectorAll('p')))
+        }
+        
+        let parameters = {movieName, realseYear, length, country, rating, price, src, 
+            description, directorData, genreData: genreData.join("|"), actorData: actorData.join("|"), action:'add-movie'}
+        
+        if(type == 'add')
+            sendData('admin-addmovie', parameters)
+        else if(type == 'update'){
+            parameters.movieId = _$('input[name="name"]').dataset.id
+//            console.log(parameters);
+            sendData('admin-handleUDmovie', parameters)
+        }
+    }
+}
+
+//movie-admin update-delete===
+function handleGetDataUpdate(element) {
+    let id = element.dataset.id
+    window.location.href = "admin-handleUDmovie?action=update&id=" + id;
+}
+
+function handleGetDataDelete(element) {
+    let id = element.dataset.id
+    if (confirm("are U sure to delete this film?")) {
+        window.location.href = "admin-handleUDmovie?action=delete&id=" + id;
+    }
+}

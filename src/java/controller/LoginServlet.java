@@ -31,13 +31,6 @@ public class LoginServlet extends HttpServlet {
         request.getRequestDispatcher("login.jsp").forward(request, response);
     } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -68,6 +61,11 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "Wrong username or password!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+        //being block
+        else if(ua.getState()==1){
+            request.setAttribute("error", "Your account are being blocked!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
         else {
             session.setAttribute("account", ua);
             User_Info ui = uad.getUserInfoByUser_AccId(ua.getId());
@@ -75,11 +73,6 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("http://localhost:9999/Movie_Web/");
         }
     }
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

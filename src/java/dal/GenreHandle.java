@@ -42,4 +42,16 @@ public class GenreHandle extends DBContext{
         }
         return null;
     }
+    
+    //delete genre by movie id
+    public void deleteGenreByMovieId(int id) {
+        String sql = "delete from movie_genre where _movie_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }

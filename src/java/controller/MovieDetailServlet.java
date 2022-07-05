@@ -34,9 +34,10 @@ public class MovieDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CookieHandle chl = new CookieHandle();
+        MovieRelated mrd = new MovieRelated();
+        
         String id_raw = request.getParameter("id");
         int id = Integer.parseInt(id_raw);
-        MovieRelated mrd = new MovieRelated();
 
         Movie movie = mrd.getMovieById(id);
         List<Actor> actorList = mrd.getActorById(id);

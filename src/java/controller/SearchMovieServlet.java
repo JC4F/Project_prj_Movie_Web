@@ -56,6 +56,7 @@ public class SearchMovieServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User_Acc ua = (User_Acc) session.getAttribute("account");
+        User_Info ui = (User_Info) session.getAttribute("user_info");
         
         String selectSearch = request.getParameter("selectSearch");
         String inputSearch = request.getParameter("inputSearch");
@@ -70,10 +71,9 @@ public class SearchMovieServlet extends HttpServlet {
         List<Integer> listMOwn = new ArrayList<>();;
         List<Movie> listMovieTmp1 = new ArrayList<>();
         if(paid==null || paid.equals("")) paid = "false";
-        if(session.getAttribute("user_info")==null){
+        if(ui==null){
             listMovieTmp1 = mrd.getMoviePaid(listMOwn, listMovieTmp0, paid);
         } else{
-            User_Info ui = (User_Info) session.getAttribute("user_info");
             listMovieTmp1 = mrd.getMoviePaid(ui.getMovieOwn(), listMovieTmp0, paid);
         }
         
@@ -156,17 +156,28 @@ public class SearchMovieServlet extends HttpServlet {
                 }
             }
             String movieItemAction = "<div class=\"movie-action\">\n"
-                    +"             <span><i class=\"fas fa-edit\"></i></span>\n"
-                    +"             <span><i class=\"fas fa-trash-alt\"></i></span>\n"
+                    +"             <span data-id=\""+m.getId()+"\" onclick=\"handleGetDataUpdate(this)\"><i class=\"fas fa-edit\"></i></span>\n"
+                    +"             <span data-id=\""+m.getId()+"\" onclick=\"handleGetDataDelete(this)\"><i class=\"fas fa-trash-alt\"></i></span>\n"
                     +"         </div>";
-            movieItemMid += "</div>\n"
+            if(ui.getMovieOwn().contains(m.getId())){
+                movieItemMid += "</div>\n"
                     + "<div class=\"movie-price\">\n"
                     + "            <p>$" + m.getPrice() + "</p>\n"
-                    + "            <span onclick=\"handleAjaxShopCart(this)\" data-id=\""+m.getId()+"\" >"+(listId.contains(m.getId())?"CANCEL CART":"ADD TO CART")+"</span>\n"
+                    + "             <span class=\"movie-paid\">PAID</span>"
                     + "      </div>\n"
                     + ((ua!=null && ua.getRole()==1)? movieItemAction:"")
                     +"    </div>\n"
                     + "</div>\n";
+            }else{
+                movieItemMid += "</div>\n"
+                        + "<div class=\"movie-price\">\n"
+                        + "            <p>$" + m.getPrice() + "</p>\n"
+                        + "            <span onclick=\"handleAjaxShopCart(this)\" data-id=\""+m.getId()+"\" >"+(listId.contains(m.getId())?"CANCEL CART":"ADD TO CART")+"</span>\n"
+                        + "      </div>\n"
+                        + ((ua!=null && ua.getRole()==1)? movieItemAction:"")
+                        +"    </div>\n"
+                        + "</div>\n";
+            }
             searchContent += movieItemAbove + movieItemMid;
         }
         searchContent += "</div>\n"
@@ -189,11 +200,6 @@ public class SearchMovieServlet extends HttpServlet {
         out.println(searchHeader + searchContent+pagination);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

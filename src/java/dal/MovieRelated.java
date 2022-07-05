@@ -489,7 +489,7 @@ public class MovieRelated extends DBContext {
     }
     
     //update movie-actor and movie-genre
-    public void updataActorAndGenre(Movie m){
+    public void addActorAndGenre(Movie m){
         List<Actor> AList = m.getActorL();
         for(Actor a: AList){
             String sql = "insert into movie_actor values(?, ?)";
@@ -514,6 +514,46 @@ public class MovieRelated extends DBContext {
             } catch (SQLException e) {
                 System.out.println(e);
             }
+        }
+    }
+    
+    // update information from movie
+    public void updateMovie(Movie m){
+        String sql = "update movie set name=?, _director_id=?, realse_year=?, "
+                + "movie_length=?, country=?, rating_avarage=?, price=?, src=?, description=? where id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, m.getName());
+            st.setInt(2, m.getDirector().getId());
+            st.setDate(3, m.getRealse_year());
+            st.setInt(4, m.getLength());
+            st.setString(5, m.getCountry());
+            st.setInt(6, m.getRating());
+            st.setInt(7, m.getPrice());
+            st.setString(8, m.getSrc());
+            st.setString(9, m.getDescription());
+            st.setInt(10, m.getId());
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    //delete movie by movieid
+    public void deleteMovieByMovieId(int id) {
+        ActorHandle ah = new ActorHandle();
+        GenreHandle gh = new GenreHandle();
+        
+        ah.deleteActorByMovieId(id);
+        gh.deleteGenreByMovieId(id);
+        
+        String sql = "delete from movie where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 }

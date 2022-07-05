@@ -14,7 +14,7 @@ import model.Actor;
  * @author win
  */
 public class ActorHandle extends DBContext{
-    //add new director
+    //add new actor
     public void addNewActor(Actor d) {
         String sql = "insert into actor values(?,?,?)";
         try {
@@ -28,7 +28,7 @@ public class ActorHandle extends DBContext{
         }
     }
 
-    //find director by Director d
+    //find actor by actor d
     public Actor getActor(Actor d) {
         String sql = "Select * from actor where fullname=? and birth=? and nationality=?";
         try {
@@ -45,5 +45,17 @@ public class ActorHandle extends DBContext{
             System.out.println(e);
         }
         return null;
+    }
+    
+    //delete actor by movie id
+    public void deleteActorByMovieId(int id) {
+        String sql = "delete from movie_actor where _movie_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

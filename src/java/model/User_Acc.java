@@ -12,16 +12,17 @@ public class User_Acc {
     private int id;
     private String username;
     private String password;
-    private int role;
+    private int role, state;
 
     public User_Acc() {
     }
 
-    public User_Acc(int id, String username, String password, int role) {
+    public User_Acc(int id, String username, String password, int role, int state) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.state = state;
     }
 
     public int getId() {
@@ -54,6 +55,14 @@ public class User_Acc {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
     
 }

@@ -24,9 +24,44 @@
             <div class="container">
                 <div class="MD-main">
                     <div class="MD__main-trailer">
-                        <iframe
-                            src="https://www.youtube.com/embed/${requestScope.movie.src}">
-                        </iframe>
+                        <img src="https://i.ytimg.com/vi/${requestScope.movie.src}/maxresdefault.jpg" alt="">
+                        <i class="fas fa-play-circle"></i>
+
+                        <button type="button" class="" data-toggle="modal" data-target="#videoModal"><i
+                                class="fas fa-play-circle"></i></button>
+
+                        <c:if test="${sessionScope.user_info.movieOwn.contains(requestScope.movie.id)}">
+                            <div id="videoModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <iframe src="https://www.youtube.com/embed/${requestScope.movie.src}">
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </div> 
+                        </c:if>
+                        <c:if test="${!sessionScope.user_info.movieOwn.contains(requestScope.movie.id)}">
+                            <div class="modal fade" id="videoModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span>You haven't paid this film!</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
                     </div>
                     <div class="MD__main-info">
                         <h1>${requestScope.movie.name}
@@ -95,10 +130,18 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <button class="btn btn_add-to-cart" onclick="handleAjaxShopCart(this)" data-id="${requestScope.movie.id}">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span>${requestScope.listId.contains(requestScope.movie.id)?'CANCEL CART':'ADD TO CARD'}</span>
-                        </button>
+                        <c:if test="${sessionScope.user_info.movieOwn.contains(requestScope.movie.id)}">
+                            <button class="btn btn_add-to-cart">
+                                <span>PAID</span>
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </c:if>
+                        <c:if test="${!sessionScope.user_info.movieOwn.contains(requestScope.movie.id)}">
+                            <button class="btn btn_add-to-cart" onclick="handleAjaxShopCart(this)" data-id="${requestScope.movie.id}">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>${requestScope.listId.contains(requestScope.movie.id)?'CANCEL CART':'ADD TO CARD'}</span>
+                            </button>
+                        </c:if>
                     </div>
                     <div class="MD__main-comment">
                         <!-- onclick de hien cmt -->
@@ -217,7 +260,7 @@
                                 </div>
                                 <div class="movie-price">
                                     <p>$29.00</p>
-                                   <span>ADD TO CARD</span>
+                                    <span>ADD TO CARD</span>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +284,7 @@
                                 </div>
                                 <div class="movie-price">
                                     <p>$29.00</p>
-                                   <span>ADD TO CARD</span>
+                                    <span>ADD TO CARD</span>
                                 </div>
                             </div>
                         </div>
@@ -252,8 +295,8 @@
         <%@include file="footer.jsp"%> 
         <script src="./js/script.js"></script>
         <script>
-            handleAll();
-            handleMovieDetail();
+                                        handleAll();
+                                        handleMovieDetail();
         </script>
         <script src="./js/ajax.js"></script>
     </body>

@@ -26,7 +26,7 @@ public class UserRelatedDal extends DBContext{
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
-                User_Acc a = new User_Acc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                User_Acc a = new User_Acc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
                 return a;
             }
         } catch (SQLException e) {
@@ -43,7 +43,24 @@ public class UserRelatedDal extends DBContext{
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
-                User_Acc a = new User_Acc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                User_Acc a = new User_Acc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+                return a;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    // get user_acc by useracc id
+    public User_Acc getUaByUaId(int id){
+        String sql="Select * from user_acc where id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                User_Acc a = new User_Acc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
                 return a;
             }
         } catch (SQLException e) {
@@ -164,5 +181,75 @@ public class UserRelatedDal extends DBContext{
             System.out.println(e);
         }
         return list;
+    }
+    
+    //get User_info by input search and select bl/unbl
+    public List<User_Info> getSearchedUserInfo(String type, String input) {
+        int money=-1;
+        try {
+            money = Integer.parseInt(input);
+        } catch (Exception e) {
+        }
+        List<User_Info> list = new ArrayList<>();
+        String sql = "with r as(select user_info.*, state from user_info join user_acc on "
+                + "user_info._user_id = user_acc.id where fullname like ? or email "
+                + "like ? or phone like ? or birth like ? or acc_money = ?";
+        
+        if("Male".startsWith(input) || "male".startsWith(input)){
+            sql+= " or gender=1 ";
+        }
+        else if("Female".startsWith(input) || "female".startsWith(input))
+            sql+= " or gender=0 ";
+        
+        sql += ")select * from r";
+        
+        if(type.equals("Block"))
+            sql += " where state = 1";
+        else if(type.equals("Unblock"))
+            sql += " where state = 0";
+        
+        try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setString(1, ("%" + input + "%"));
+                st.setString(2, ("%" + input + "%"));
+                st.setString(3, ("%" + input + "%"));
+                st.setString(4, ("%" + input + "%"));
+                st.setInt(5, money);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    User_Info ui = new User_Info(rs.getInt(1), rs.getInt(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), 
+                            rs.getDate(8), rs.getDouble(9), getMovieIdByUserInfoId(rs.getInt(1)));
+                    list.add(ui);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        return list;
+    }
+    
+    //get user_info follow by num of page
+    public List<User_Info> getUserInfoByPage(List<User_Info> allUiList, int start, int end){
+        List<User_Info> list = new ArrayList<>();
+        for(int i = start; i<end; i++){
+            list.add(allUiList.get(i));
+        }
+        return list;
+    }
+    
+    //Block and unblock user_acc
+    public void BlockAUnBlock(String type, int id){
+        String sql = "update user_acc set state=? where id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            if(type.equals("Block"))
+                st.setInt(1, 0);
+            else if(type.equals("Unblock"))
+                st.setInt(1, 1);
+            st.setInt(2, id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
