@@ -484,6 +484,23 @@ html {
                 transition: 0.4s;
                 font-weight: 700;
             }
+            span.movie-paid {
+                font-size: 1.8rem;
+                position: relative;
+                right: 16px;
+            }
+            span.movie-paid:after{
+                content: "";
+                position: absolute;
+                left: 48px;
+                top: 4px;
+                width: 7px;
+                height: 12px;
+                border: solid #c28787;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
             span:hover {
                 color: #000;
             }
@@ -1372,14 +1389,14 @@ html {
                     transform: translate(-50%, calc(-50% - 36px)) scale(1.5);
                 }
             }
-            .modal-dialog {
-                margin-top: 112px;
-            }
             iframe {
                 height: 650px;
                 width: 1050px;
                 position: relative;
                 left: -114px;
+            }
+            .modal-dialog {
+                margin-top: 112px;
             }
             .modal-header {
                 h5 {
@@ -1778,6 +1795,15 @@ html {
         border-bottom: 1px solid rgba(0,0,0,.1);
     }
     .shopping-card-list {
+        .alert {
+            font-size: 1.8rem;
+            border-radius: 10px;
+            padding: 14px 10px;
+            button {
+                font-size: 2rem;
+                top: 7px;
+            }
+        }
         margin-bottom: 32px;
         input[type="checkbox"] {
             position: relative;
@@ -1940,9 +1966,12 @@ html {
         }
     }
     .btn-nav {
+        display: flex;
+        align-items: center;
         margin: 10px 0 60px;
-        text-align: right;
-        a {
+        justify-content: flex-end;
+        gap: 10px;
+        a, button.checkout {
             display: inline-block;
             text-decoration: none;
             font-size: 1.6rem;
@@ -1952,12 +1981,35 @@ html {
             font-weight: 500;
             border-radius: 5px;
         }
-        a:nth-of-type(2) {
+        button.checkout {
+            border: none;
+            cursor: pointer;
             color: #fff;
             background-color: #1266f1;
         }
-        a:hover {
+        a:hover, .checkout:hover {
             opacity: 0.8;
+        }
+        .modal-dialog {
+            margin-top: 112px;
+        }
+        .modal-header {
+            h5 {
+                font-size: 2rem;
+            }
+            span {
+                font-size: 2.4rem;
+            }
+        }
+        .modal-body {
+            span {
+                font-size: 1.8rem;
+            }
+        }
+        .modal-footer {
+            button {
+                padding: 10px 40px;
+            }
         }
     }
 }

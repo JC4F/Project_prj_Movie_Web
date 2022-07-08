@@ -15,24 +15,27 @@ function preventDefaultSubmit() {
 function handleAll() {
 
     //btn shoping card + btn avatar
-    let shopingCardBtn = _$('#page-heading .shoping-card-title');
+    let shopingCardBtn = _$('#page-heading .shoping-card-title')
     let avatarBtn = _$('#page-heading .avatar-wrapper img')
-    shopingCardBtn.onclick = function () {
-        this.parentElement.classList.toggle('onclick');
-    }
-    avatarBtn.onclick = function () {
-        this.parentElement.classList.toggle('onclick');
-    }
-
-    document.onclick = (e) => {
-        if (!e.target.closest('.shopping-card-wrapper')) {
-            if (shopingCardBtn.parentElement.classList.contains('onclick')) {
-                shopingCardBtn.parentElement.classList.remove('onclick');
-            }
+    
+    if(shopingCardBtn && avatarBtn){
+        shopingCardBtn.onclick = function () {
+            this.parentElement.classList.toggle('onclick');
         }
-        if (!e.target.closest('.avatar-wrapper')) {
-            if (avatarBtn.parentElement.classList.contains('onclick')) {
-                avatarBtn.parentElement.classList.remove('onclick');
+        avatarBtn.onclick = function () {
+            this.parentElement.classList.toggle('onclick');
+        }
+
+        document.onclick = (e) => {
+            if (!e.target.closest('.shopping-card-wrapper')) {
+                if (shopingCardBtn.parentElement.classList.contains('onclick')) {
+                    shopingCardBtn.parentElement.classList.remove('onclick');
+                }
+            }
+            if (!e.target.closest('.avatar-wrapper')) {
+                if (avatarBtn.parentElement.classList.contains('onclick')) {
+                    avatarBtn.parentElement.classList.remove('onclick');
+                }
             }
         }
     }

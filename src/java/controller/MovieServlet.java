@@ -56,7 +56,7 @@ public class MovieServlet extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("num", num);
         
-        request.getRequestDispatcher("movies.jsp").forward(request, response);
+        request.getRequestDispatcher("main/movie/index.jsp").forward(request, response);
     } 
 
     @Override

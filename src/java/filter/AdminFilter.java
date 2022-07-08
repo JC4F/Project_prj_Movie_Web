@@ -25,7 +25,8 @@ import model.User_Acc;
  *
  * @author win
  */
-@WebFilter(filterName="AdminFilter", urlPatterns={"/admin-dashboard.jsp", "/admin-dashboard", "/admin-addmovie", "/admin-add-movie.jsp", "/admin-handleUDmovie", "/admin-update-movie.jsp", "/admin-handleacc", "/admin-handle-acc.jsp"})
+@WebFilter(filterName="AdminFilter", urlPatterns={"/main/admin/admin-dashboard.jsp", "/admin-dashboard", "/admin-addmovie", 
+    "/main/admin/admin-add-movie.jsp", "/admin-handleUDmovie", "/main/admin/admin-update-movie.jsp", "/admin-handleacc", "/main/admin/admin-handle-acc.jsp"})
 public class AdminFilter implements Filter {
 
     private static final boolean debug = true;

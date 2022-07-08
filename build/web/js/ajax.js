@@ -106,6 +106,67 @@ function handleCountItem() {
     }
     countPos.innerHTML = `${num} items`
 }
+function handleAfterCheckout(checkoutElements, MessType) {
+    let cardMess = _$('.card-mess')
+    let data = ''
+    if (MessType == 'Success') {
+        for (let checkoutElement of checkoutElements)
+            handleDelete(checkoutElement)
+        data = `<strong>Success!</strong> Buy successfully!.`
+    } else if (MessType == 'Failure') {
+        data = `<strong>Not enough money!</strong> You can't buy these films.`
+    } else if (checkoutElements.length == 0) {
+        data = `<strong>Error!</strong> You can't buy without any items.`
+    }
+
+    cardMess.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            ${data}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>`
+}
+function handleCheckout() {
+    let checkoutBtn = _$('#checkout-btn')
+    let closeBtn = checkoutBtn.parentElement.querySelector('.btn-secondary')
+
+    checkoutBtn.onclick = () => {
+        let checkItems = _$_$('input[name="item-index"]:checked')
+        let moneyPos = _$('.shopping-card-total span')
+        let idList = []
+        for (let checkItem of checkItems) {
+            idList.push(checkItem.dataset.id)
+        }
+
+        let parameters = {
+            idList: idList.join(','), 
+            money: moneyPos.innerHTML.slice(1),
+            action: 'check-out'
+        }
+         console.log(parameters)
+
+        if (checkItems.length == 0)
+            handleAfterCheckout(checkItems)
+        else {
+            //call api processData
+            $.ajax({
+                url: "/Movie_Web/shop-cart",
+                type: "post", //send it through get method
+                data: parameters,
+                success: function (data) {
+                    let res = data
+                    console.log(res);
+                    handleAfterCheckout(checkItems, res)
+                },
+                error: function (xhr) {
+                    console.log("error");
+                }
+            });
+        }
+
+        closeBtn.click()
+    }
+}
 
 //for search input with only js
 function handldeSearchCart(element) {
@@ -132,7 +193,8 @@ function handleAjaxShopCart(element) {
         url: "/Movie_Web/shop-cart",
         type: "post", //send it through get method
         data: {
-            id: element.dataset.id
+            id: element.dataset.id,
+            action: 'handle-shopcart-cookie'
         },
         success: function (data) {
 //            console.log(JSON.stringify(data));
@@ -287,7 +349,7 @@ function handleAjaxSearchGenre(element) {
 
 
 //admin handle acc
-function handleAjaxSearchAcc(element){
+function handleAjaxSearchAcc(element) {
     let select = document.querySelector("#inputGroupSelect01").value;
     let input = document.querySelector("#search-info").value;
 
@@ -314,20 +376,20 @@ function handleAjaxSearchAcc(element){
     });
 }
 
-function handleJsChangeStateUserAcc(id, type){
-    
+function handleJsChangeStateUserAcc(id, type) {
+
 }
 
-function handleAjaxChangeStateUserAcc(element){
+function handleAjaxChangeStateUserAcc(element) {
     let id = element.dataset.id
     let type = element.dataset.type
-    
+
     let parameters = {
         id,
         type,
         action: 'update-state'
     }
-    
+
     $.ajax({
         url: "/Movie_Web/admin-handleacc",
         type: "post", //send it through get method

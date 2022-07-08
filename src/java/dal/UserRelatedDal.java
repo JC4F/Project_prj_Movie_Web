@@ -252,4 +252,32 @@ public class UserRelatedDal extends DBContext{
             System.out.println(e);
         }
     }
+    
+    // update userinfo money
+    public void updateUserInfoMoney(User_Info ui, double mn){
+        String sql = "update user_info set acc_money=? where id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setDouble(1, mn);
+            st.setInt(2, ui.getId());
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    // add OwnFim===============================================
+    public void addMovieUserInfo(User_Info ui, String[] idList){
+        for(String id: idList){
+            String sql = "insert into movie_userInfo values(?, ?)";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setInt(1, ui.getId());
+                st.setInt(2, Integer.parseInt(id));
+                st.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
 }
