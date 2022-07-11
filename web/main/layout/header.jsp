@@ -16,7 +16,7 @@
                             <a class="nav-link ${(!!pageContext.request.requestURI.startsWith('/Movie_Web/index.jsp') || !!pageContext.request.requestURI.equals('/Movie_Web/'))?'active':''}" href="./index.jsp">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ${(!!pageContext.request.requestURI.startsWith('/Movie_Web/main/movie'))?'active':''}" href="movies">Movies</a>
+                            <a class="nav-link ${(!!pageContext.request.requestURI.startsWith('/Movie_Web/main/movie'))?'active':''}" href="movie">Movies</a>
                         </li>
                         <li class="nav-item ${(!!pageContext.request.requestURI.startsWith('/Movie_Web/about-us'))?'active':''}">
                             <a class="nav-link" href="#">About us</a>
@@ -68,10 +68,10 @@
                             </div>
                             <!-- add class onclick to appear avatar-down-->
                             <div class="avatar-wrapper">
-                                <img src="./images/${sessionScope.user_info.avatar}" alt="avatar">
+                                <img src="./images/${sessionScope.user_info.avatar}" onerror="this.onerror = null;this.src = './images/avatar.jpg';console.clear()" alt="avatar">
                                 <div class="avatar-down">
                                     <div class="avatar__down-header">
-                                        <img src="./images/${sessionScope.user_info.avatar}" alt="avatar">
+                                        <img src="./images/${sessionScope.user_info.avatar}" onerror="this.onerror = null;this.src = './images/avatar.jpg';console.clear()" alt="avatar">
                                         <div class="name__money-wrapper">
                                             <p>${sessionScope.user_info.fullname}</p>
                                             <span>${sessionScope.user_info.acc_money}</span>
@@ -83,7 +83,7 @@
                                     </div>
                                     <hr>
                                     <div class="avatar__down-change-password">
-                                        <a href="./change-password.jsp">Change password</a>
+                                        <a href="change-password">Change password</a>
                                     </div>
                                     <hr>
                                     <div class="avatar__down-setting">

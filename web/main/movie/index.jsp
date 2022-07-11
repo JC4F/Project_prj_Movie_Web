@@ -16,6 +16,10 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     </head>
     <body>
+        <div id="page-loading">
+            <i class="fas fa-spinner"></i>
+            <p>Loading...</p>
+        </div>
         <div id="page-heading">
             <!-- them onactive + bo container de thay doi size cua header -->
             <%@include file="../layout/header.jsp"%> 
@@ -114,13 +118,13 @@
                 </div>
                 <div class="RC-pagination">
                     <c:if test="${requestScope.page!=1}">
-                        <a href="movies?page=${requestScope.page-1}" data-index="0">&laquo;</a>
+                        <a href="movie?page=${requestScope.page-1}" data-index="0">&laquo;</a>
                     </c:if>
                     <c:forEach begin="${1}" end="${requestScope.num}" var="n">
-                        <a class="${((n==requestScope.page)?'active':'')}" href="movies?page=${n}" data-index="${n}">${n}</a>
+                        <a class="${((n==requestScope.page)?'active':'')}" href="movie?page=${n}" data-index="${n}">${n}</a>
                     </c:forEach>
                     <c:if test="${requestScope.page!=requestScope.num}">
-                        <a href="movies?page=${requestScope.page+1}" data-index="0">&raquo;</a>
+                        <a href="movie?page=${requestScope.page+1}" data-index="0">&raquo;</a>
                     </c:if>
                 </div>
             </div>
@@ -131,6 +135,10 @@
     <script>
                                                 handleAll();
                                                 preventDefaultSubmit();
+                                                window.addEventListener('load', (event) => {
+                                                    let loading = document.getElementById('page-loading');
+                                                    loading.style.display = 'none';
+                                                });
     </script>
     <script src="./js/ajax.js"></script>
 </html>

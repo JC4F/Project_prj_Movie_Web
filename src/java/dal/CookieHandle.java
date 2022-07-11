@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import model.Cart;
+import model.cart.Cart;
 
 /**
  *
@@ -27,7 +24,7 @@ public class CookieHandle {
                 }
             }
         }
-        MovieRelated mrd = new MovieRelated();
+        MovieHandle mrd = new MovieHandle();
         if (txt != null && !txt.equals("")) {
             String[] s = txt.split("/");
             for (String i : s) {

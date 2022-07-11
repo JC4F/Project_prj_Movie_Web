@@ -26,7 +26,7 @@
                                 <i class="fas fa-caret-right"></i>
                                 <span>Add movie</span>
                             </a></li>
-                        <li><a href="movies">
+                        <li><a href="movie">
                                 <i class="fas fa-caret-right"></i>
                                 <span>HandleUD movie</span>
                             </a></li>

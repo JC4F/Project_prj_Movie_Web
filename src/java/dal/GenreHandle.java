@@ -1,19 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import model.Genre;
+import java.util.ArrayList;
+import java.util.List;
+import model.movie.Genre;
 
-/**
- *
- * @author win
- */
 public class GenreHandle extends DBContext{
+    
+    //get All genre
+    public List<Genre> getAllGenre() {
+        List<Genre> list = new ArrayList<>();
+        String sql = "select * from genre";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Genre g = new Genre(rs.getInt(1), rs.getString(2));
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
     //add new genre
     public void addNewGenre(Genre d) {
         String sql = "insert into genre values(?)";
@@ -41,6 +54,67 @@ public class GenreHandle extends DBContext{
             System.out.println(e);
         }
         return null;
+    }
+    
+    //get genre by name
+    public List<Genre> getSearchGenre(String input) {
+        List<Genre> list = new ArrayList<>();
+        String sql = "select * from genre where genre_name like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, ("%"+input+"%"));
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Genre g = new Genre(rs.getInt(1), rs.getString(2));
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    // get genre by genreId
+    public Genre getGenreById(int id) {
+        String sql = "select * from genre where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Genre g = new Genre(rs.getInt(1), rs.getString(2));
+                return g;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public ArrayList<String> getStringGenre(List<Genre> listG){
+        ArrayList<String> list = new ArrayList<>();
+        for(Genre g:listG)
+            list.add(g.getGenre_name());
+        return list;
+    }
+    
+    //get genre by movie id
+    public List<Genre> getGenreByMovieId(int id) {
+        List<Genre> list = new ArrayList<>();
+        String sql = "select genre.* from genre join movie_genre on genre.id = movie_genre._genre_id"
+                + " where movie_genre._movie_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Genre g = new Genre(rs.getInt(1), rs.getString(2));
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
     
     //delete genre by movie id

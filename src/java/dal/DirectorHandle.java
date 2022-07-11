@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import model.Director;
+import java.util.ArrayList;
+import java.util.List;
+import model.movie.Director;
 
 /**
  *
@@ -46,5 +45,40 @@ public class DirectorHandle extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+    
+    //get director by movieid
+    public Director getDirecById(int id) {
+        String sql = "Select * from director where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Director d = new Director(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
+                return d;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    //get director by director name
+    public List<Director> getDirecByDName(String name) {
+        List<Director> list = new ArrayList<>();
+        String sql = "Select * from director where fullname like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, ("%" + name + "%"));
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Director d = new Director(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
+                list.add(d);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
 }

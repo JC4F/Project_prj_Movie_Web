@@ -17,11 +17,6 @@
     </head>
 
     <body>
-        <!-- appear when some page is load -->
-        <div id="page-loading">
-            <i class="fas fa-spinner"></i>
-            <p>Loading...</p>
-        </div>
         <div id="page-heading">
             <%@include file="./main/layout/header.jsp"%> 
             <div class="PH-slider container">

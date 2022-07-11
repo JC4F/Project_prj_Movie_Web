@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Filter.java to edit this template
- */
 
 package filter;
 
@@ -19,12 +15,8 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.User_Acc;
+import model.account.User_Acc;
 
-/**
- *
- * @author win
- */
 @WebFilter(filterName="AdminFilter", urlPatterns={"/main/admin/admin-dashboard.jsp", "/admin-dashboard", "/admin-addmovie", 
     "/main/admin/admin-add-movie.jsp", "/admin-handleUDmovie", "/main/admin/admin-update-movie.jsp", "/admin-handleacc", "/main/admin/admin-handle-acc.jsp"})
 public class AdminFilter implements Filter {

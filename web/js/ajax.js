@@ -139,11 +139,11 @@ function handleCheckout() {
         }
 
         let parameters = {
-            idList: idList.join(','), 
+            idList: idList.join(','),
             money: moneyPos.innerHTML.slice(1),
             action: 'check-out'
         }
-         console.log(parameters)
+        console.log(parameters)
 
         if (checkItems.length == 0)
             handleAfterCheckout(checkItems)
@@ -402,4 +402,64 @@ function handleAjaxChangeStateUserAcc(element) {
             //Do Something to handle error
         }
     });
+}
+
+//my-info
+function handleAjaxUpdateInfo(event, element) {
+    event.preventDefault()
+    let heading = document.getElementById('page-heading')
+    let myInfo = document.getElementById('page-my-info-change-password-box')
+    let footer = document.getElementById('page-footer')
+    let loading = document.getElementById('page-loading')
+
+//    let avatar = document.getElementById("avatar").files[0];
+//    let fullname = document.getElementById("fullname").value;
+//    let email = document.getElementById("email").value;
+//    let phone = document.getElementById("phone").value;
+//    let gender = document.querySelector('input[name="gender"]:checked').value;
+//    let birthday = document.getElementById("birthday").value;
+//    
+//    let parameters = {avatar, fullname, email, phone, gender, birthday}
+//    console.log(parameters);
+
+    let form = document.querySelector('#form-submit')
+    var formData = new FormData(form);
+//    console.log(formData);
+
+    $.ajax({
+        url: "/Movie_Web/my-info",
+        type: "post", //send it through get method
+        data: formData,
+        processData: false,
+        cache: false,
+        contentType: false,
+        success: function (data) {
+//            let srcTmp = `${sessionScope.user_info.avatar}` -> muon dung cai nay thi de ben file jsp
+//            -> response url tu sever ra
+            let url = data
+//            console.log(url)
+
+            handleGetUrl(url, heading, myInfo, footer, loading)
+//            window.location.href = "my-info";
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
+}
+
+function handleGetUrl(url, heading, myInfo, footer, loading){
+    $.get(url)
+        .done(function () {
+                window.location.href = "my-info";
+        }).fail(function () {
+            loading.style.display = 'block'
+            heading.style.display = 'none'
+            myInfo.style.display = 'none'
+            footer.style.display = 'none'
+            setTimeout(function(){
+                handleGetUrl(url, heading, myInfo, footer, loading)
+            }, 2000); 
+        }
+    )
 }

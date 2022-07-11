@@ -18,7 +18,7 @@
 <body>
     <div id="page-heading">
         <!-- them onactive + bo container de thay doi size cua header -->
-        <%@include file="header.jsp"%> 
+        <%@include file="../layout/header.jsp"%>
     </div>
     <div id="page-my-info-change-password-box">
         <div class="container">

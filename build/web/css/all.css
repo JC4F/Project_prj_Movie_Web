@@ -13,13 +13,13 @@ html {
 }
 
 #page-loading {
+  display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   text-align: center;
-  display: none;
 }
 
 #page-loading p, #page-loading i {
@@ -558,11 +558,16 @@ html {
   color: #151515;
   text-decoration: none;
   font-size: 1.8rem;
-  line-height: 1em;
+  line-height: 2rem;
+  height: 4.1rem;
   padding-top: 20px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   font-weight: 700;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .col-12 .movie-description h6 a:hover {

@@ -13,12 +13,12 @@ html {
 
 // ===============index.html===================
 #page-loading {
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    display: none;
     p,i {
         font-size: 2rem;
     }

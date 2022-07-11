@@ -1,18 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import model.Actor;
+import java.util.ArrayList;
+import java.util.List;
+import model.movie.Actor;
 
-/**
- *
- * @author win
- */
 public class ActorHandle extends DBContext{
     //add new actor
     public void addNewActor(Actor d) {
@@ -45,6 +40,43 @@ public class ActorHandle extends DBContext{
             System.out.println(e);
         }
         return null;
+    }
+    
+    //get actor by movieid
+    public List<Actor> getActorById(int id) {
+        List<Actor> list = new ArrayList<>();
+        String sql = "select actor.id, fullname, birth, nationality from actor join "
+                + "movie_actor on actor.id = movie_actor._actor_id where _movie_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Actor g = new Actor(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    //get director by director name
+    public List<Actor> getActorByDName(String name) {
+        List<Actor> list = new ArrayList<>();
+        String sql = "Select * from actor where fullname like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, ("%" + name + "%"));
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Actor d = new Actor(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
+                list.add(d);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
     
     //delete actor by movie id

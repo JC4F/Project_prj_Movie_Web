@@ -14,19 +14,26 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="./js/ajax.js"></script>
     </head>
     <body>
+        <!-- appear when some page is load -->
+        <div id="page-loading">
+            <i class="fas fa-spinner"></i>
+            <p>Loading...</p>
+        </div>
         <div id="page-heading">
             <!-- them onactive + bo container de thay doi size cua header -->
-            <%@include file="header.jsp"%> 
+            <%@include file="../layout/header.jsp"%> 
         </div>
         <div id="page-my-info-change-password-box">
             <div class="container">
                 <h2>Your Information</h2>
                 <div class="form-wrapper">
-                    <form action="my-info" method="post"  enctype="multipart/form-data">
+                    <form id="form-submit" action="my-info" method="post"  enctype="multipart/form-data">
                         <div class="PMI-wrapper">
-                            <img src="./images/${sessionScope.user_info.avatar}" alt="">
+                            <img src="./images/${sessionScope.user_info.avatar}" onerror="this.onerror = null;this.src = './images/avatar.jpg';console.clear()" alt="avatar">
                             <label for="avatar">
                                 <div class="change-avatar">
                                     <i class="fas fa-camera"></i>
@@ -64,7 +71,7 @@
                             </div>
                             <input type="text" name="money" value="$${sessionScope.user_info.acc_money}" id="money" readonly>
                         </div>
-                        <input type="submit" value="Update">
+                        <input type="submit" value="Update" onclick="handleAjaxUpdateInfo(event, this)">
                     </form>
                 </div>
             </div>
