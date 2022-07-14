@@ -134,7 +134,8 @@ public class ShopCart extends HttpServlet {
                 session.setAttribute("user_info", uiUpdate);
 
                 out.print("Success");
-            }
+                
+            } 
 
         }
 

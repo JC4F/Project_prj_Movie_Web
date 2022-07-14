@@ -169,6 +169,57 @@ function handleCheckout() {
 }
 
 //for search input with only js
+function handleAjaxLoadMovieToHeader() {
+    let cookies = document.cookie.split("; ")
+    let cartCk = ''
+    let targetAdd = document.querySelector('.MyCard-content')
+                
+    targetAdd.innerHTML = ''
+    for (let cookie of cookies) {
+        if (cookie.startsWith('cart'))
+            cartCk = cookie.split("=")[1];
+    }
+    
+    if (cartCk != '') {
+        $.ajax({
+            url: "/Movie_Web/get-movie-sc",
+            type: "post", //send it through get method
+            data: {
+                cartCk
+            },
+            success: function (data) {
+                let resAll = data
+                let resItems = resAll.split('/')
+              
+                for(let resItem of resItems){
+                    let id = resItem.split(':')[0]
+                    let src = resItem.split(':')[1]
+                    let name = resItem.split(':')[2]
+                    let distance = resItem.split(':')[3]
+                    targetAdd.innerHTML += `
+                        <div data-id="${id}" data-src="${src}"class="MyCard-content-item">
+                            <a href="movie-detail?id=${id}">
+                                <img src="https://i.ytimg.com/vi/${src}/maxresdefault.jpg">
+                            </a>
+                            <div class="card-film-info">
+                                <h3><a href="movie-detail?id=${id}">${name}</a></h3>
+                                <p class="card-last-access">Add cart at ${distance} day ago</p>
+                                <div class="card-checkpay">
+                                    <a href="shop-cart">Pay Now$</a>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+                console.log("err");
+            }
+        });
+    }
+}
+
 function handldeSearchCart(element) {
     let items = _$_$('.shopping-card-item');
     let searhValue = element.value.toUpperCase();
@@ -206,6 +257,8 @@ function handleAjaxShopCart(element) {
                     textEle.innerHTML = 'CANCEL CART'
                 } else
                     element.innerHTML = 'CANCEL CART'
+
+                handleAjaxLoadMovieToHeader()
             }
             if (dataRes == "delete") {
                 if (element.innerHTML == 'CANCEL CART') {
@@ -220,6 +273,8 @@ function handleAjaxShopCart(element) {
                     else if (element.closest('.trash_delete-cart'))
                         handleDelete(element)
                 }
+
+                handleAjaxLoadMovieToHeader()
             }
         },
         error: function (xhr) {
@@ -347,7 +402,6 @@ function handleAjaxSearchGenre(element) {
     });
 }
 
-
 //admin handle acc
 function handleAjaxSearchAcc(element) {
     let select = document.querySelector("#inputGroupSelect01").value;
@@ -374,10 +428,6 @@ function handleAjaxSearchAcc(element) {
             //Do Something to handle error
         }
     });
-}
-
-function handleJsChangeStateUserAcc(id, type) {
-
 }
 
 function handleAjaxChangeStateUserAcc(element) {
@@ -448,18 +498,18 @@ function handleAjaxUpdateInfo(event, element) {
     });
 }
 
-function handleGetUrl(url, heading, myInfo, footer, loading){
+function handleGetUrl(url, heading, myInfo, footer, loading) {
     $.get(url)
-        .done(function () {
+            .done(function () {
                 window.location.href = "my-info";
-        }).fail(function () {
-            loading.style.display = 'block'
-            heading.style.display = 'none'
-            myInfo.style.display = 'none'
-            footer.style.display = 'none'
-            setTimeout(function(){
-                handleGetUrl(url, heading, myInfo, footer, loading)
-            }, 2000); 
-        }
+            }).fail(function () {
+        loading.style.display = 'block'
+        heading.style.display = 'none'
+        myInfo.style.display = 'none'
+        footer.style.display = 'none'
+        setTimeout(function () {
+            handleGetUrl(url, heading, myInfo, footer, loading)
+        }, 2000);
+    }
     )
 }

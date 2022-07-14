@@ -189,9 +189,28 @@ html {
 }
 
 #page-heading nav .connected-to-web .shopping-card-wrapper .demo-card-film .MyCard-content {
-  max-height: 68vh;
-  overflow-y: auto;
+  max-height: 415px;
+  overflow-y: overlay;
   overscroll-behavior: contain;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+
+#page-heading nav .connected-to-web .shopping-card-wrapper .demo-card-film .MyCard-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+#page-heading nav .connected-to-web .shopping-card-wrapper .demo-card-film .MyCard-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#page-heading nav .connected-to-web .shopping-card-wrapper .demo-card-film .MyCard-content::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+#page-heading nav .connected-to-web .shopping-card-wrapper .demo-card-film .MyCard-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 #page-heading nav .connected-to-web .shopping-card-wrapper .demo-card-film .MyCard-content .MyCard-content-item {

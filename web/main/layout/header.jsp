@@ -48,21 +48,7 @@
                                         <a href="shop-cart">View all card</a>
                                     </div>
                                     <div class="MyCard-content">
-                                        <div class="MyCard-content-item">
-                                            <a href="#">
-                                                <img src="./images/gallery-1.jpg">
-                                            </a>
-                                            <div class="card-film-info">
-                                                <h3><a href="#">Twenty Five Twenty One Twenty Five Twenty One</a></h3>
-                                                <p class="card-last-access">Last access was 13 day ago</p>
-                                                <!-- mac dinh la chua tra, them paid de hien tra roi -->
-                                                <div class="card-checkpay paid">
-                                                    <span>Paid</span> 
-                                                    <!-- dung after de hien tich -->
-                                                    <a href="#">Pay Now$$</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -101,4 +87,6 @@
             </div>
         </nav>
     </body>
+    <script src="./js/ajax.js"></script>
+    <script>handleAjaxLoadMovieToHeader()</script>
 </html>
