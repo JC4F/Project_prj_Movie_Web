@@ -20,12 +20,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/code/prj/Movie_Web/web/main/layout/header.jsp</file>
-            <file>file:/D:/code/prj/Movie_Web/web/js/script.js</file>
-            <file>file:/D:/code/prj/Movie_Web/src/java/controller/account/MyInfo.java</file>
-            <file>file:/D:/code/prj/Movie_Web/web/js/ajax.js</file>
-            <file>file:/D:/code/prj/Movie_Web/web/main/account/my-info.jsp</file>
-            <file>file:/D:/code/prj/Movie_Web/src/java/filter/AccountFilter.java</file>
+            <file>file:/D:/code/prj/Movie_Web/web/main/admin/admin-dashboard.jsp</file>
+            <file>file:/D:/code/prj/Movie_Web/src/java/dal/ActorHandle.java</file>
+            <file>file:/D:/code/prj/Movie_Web/src/java/dal/StatisticHandle.java</file>
+            <file>file:/D:/code/prj/Movie_Web/web/js/chart.js</file>
+            <file>file:/D:/code/prj/Movie_Web/src/java/controller/admin/AdminDashboard.java</file>
         </group>
     </open-files>
 </project-private>

@@ -85,12 +85,13 @@ public class UserHandle extends DBContext{
     
     // add new account to dtb
     public void addSignUpAcc(String username, String password){
-        String sql = "insert into user_acc values(?,?,?)";
+        String sql = "insert into user_acc values(?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setString(2, password);
             st.setInt(3, 0);
+            st.setInt(4, 0);
             st.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);

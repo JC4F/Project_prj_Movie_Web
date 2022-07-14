@@ -107,7 +107,7 @@ public class AccountFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         if (session.getAttribute("account") == null) {
-            res.sendRedirect("http://localhost:9999/Movie_Web/");
+            res.sendRedirect("login");
         }
 	
 	Throwable problem = null;

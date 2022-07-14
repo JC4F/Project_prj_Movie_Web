@@ -59,7 +59,7 @@
                     <p>Toltal: <span>$29.00</span></p>
                 </div>
                 <div class="btn-nav">
-                    <a href="movies">CONTINUE SHOPPING</a>
+                    <a href="movie">CONTINUE SHOPPING</a>
                     <button type="button" class="btn btn-primary checkout" data-toggle="modal" data-target="#checkoutModal">
                         CHECK OUT
                     </button>

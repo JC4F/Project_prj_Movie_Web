@@ -105,7 +105,7 @@ public class AdminFilter implements Filter {
         HttpSession session = req.getSession();
         User_Acc ua = (User_Acc) session.getAttribute("account");
         if (ua == null || ua.getRole()==0) {
-            res.sendRedirect("http://localhost:9999/Movie_Web/");
+            res.sendRedirect("/Movie_Web");
         }
 	
 	Throwable problem = null;

@@ -20,7 +20,7 @@ public class SignUp extends HttpServlet {
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         if(session.getAttribute("account")!=null){
-            response.sendRedirect("http://localhost:9999/Movie_Web/");
+            response.sendRedirect("/Movie_Web/");
             return;
         }
         request.getRequestDispatcher("/main/account/signup.jsp").forward(request, response);
@@ -53,7 +53,7 @@ public class SignUp extends HttpServlet {
         
         if(!password.equals(password_confirmation)){
             request.setAttribute("errorRP", "Password confirmation wrong!");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            request.getRequestDispatcher("/main/account/signup.jsp").forward(request, response);
             return;
         }
         
@@ -62,7 +62,7 @@ public class SignUp extends HttpServlet {
         User_Acc ua = uad.checkSignUp(username);
         if(ua!=null){
             request.setAttribute("errorU", "Username existed!");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            request.getRequestDispatcher("/main/account/signup.jsp").forward(request, response);
             return;
         }
         uad.addSignUpAcc(username, password);

@@ -6,7 +6,7 @@
             <ul>
                 <li class="main-side">
                     <h3>Main</h3>
-                    <a href="#">
+                    <a href="admin-dashboard">
                         <i class="fas fa-home"></i>
                         <span>Dashboard</span>
                     </a>

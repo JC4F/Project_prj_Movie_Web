@@ -2826,4 +2826,63 @@ html {
   line-height: 3rem;
   padding: 6px 24px;
 }
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .GS__item-general {
+  padding: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 100px;
+  background-color: white;
+  border-radius: 7px;
+  -webkit-box-shadow: 0 4px 25px 0 rgba(168, 180, 208, 0.1);
+          box-shadow: 0 4px 25px 0 rgba(168, 180, 208, 0.1);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .GS__item-general h4 {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .GS__item-general p {
+  font-size: 2.8rem;
+  font-weight: 500;
+}
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .GS__item-general span {
+  font-size: 3.8rem;
+}
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .detail-statistic {
+  margin-top: -8px;
+}
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .detail-statistic .row {
+  margin-bottom: 20px;
+}
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .detail-statistic .row .col-12 div {
+  background-color: white;
+  border-radius: 7px;
+  -webkit-box-shadow: 0 4px 25px 0 rgba(168, 180, 208, 0.1);
+          box-shadow: 0 4px 25px 0 rgba(168, 180, 208, 0.1);
+}
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .detail-statistic .row .col-12 div h4 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 20px 24px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e9edf4;
+}
+
+#admin-wrapper .admin-main .main-cotainer .general-statistic .detail-statistic .row .col-12 div canvas {
+  padding: 25px;
+}
 /*# sourceMappingURL=all.css.map */

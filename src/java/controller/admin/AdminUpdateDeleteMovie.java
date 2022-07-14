@@ -41,7 +41,7 @@ public class AdminUpdateDeleteMovie extends HttpServlet {
         }
         else if(action.equals("delete")){
             mrd.deleteMovieByMovieId(id);
-            response.sendRedirect("movies");
+            response.sendRedirect("movie");
         }
     }
 
