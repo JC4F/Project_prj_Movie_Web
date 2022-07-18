@@ -29,7 +29,7 @@ public class UserHandle extends DBContext{
     }
     
     // check username when sign up
-    public User_Acc checkSignUp(String username){
+    public User_Acc FindExistUserAcc(String username){
         String sql="Select * from user_acc where username=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -280,5 +280,34 @@ public class UserHandle extends DBContext{
                 System.out.println(e);
             }
         }
+    }
+    
+    //update receiptCode with username
+    public void updateReceiptCode(String username, String code){
+        String sql = "update user_acc set receiptCode=? where username=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, code);
+            st.setString(2, username);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    //get receiptCode with username
+    public String getReceptCode(String username){
+        String sql = "Select * from user_acc where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                return rs.getString(7);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 }

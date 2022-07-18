@@ -304,6 +304,14 @@ html {
   background-color: #443f3f;
 }
 
+#page-heading nav .connected-to-web .shopping-card-wrapper .demo-card-film .MyCard-content span.no-cart {
+  display: block;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #b28989;
+  padding: 8px;
+}
+
 #page-heading nav .connected-to-web .shopping-card-wrapper.onclick .demo-card-film {
   display: block;
 }

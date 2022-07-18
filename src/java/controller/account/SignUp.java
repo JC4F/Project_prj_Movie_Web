@@ -47,7 +47,7 @@ public class SignUp extends HttpServlet {
                 request.setAttribute("errorP", "Input required!");
             if(password_confirmation=="")
                 request.setAttribute("errorRP", "Input required!");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            request.getRequestDispatcher("/main/account/signup.jsp").forward(request, response);
             return;
         }
         
@@ -59,7 +59,7 @@ public class SignUp extends HttpServlet {
         
         HttpSession session = request.getSession();
         UserHandle uad = new UserHandle();
-        User_Acc ua = uad.checkSignUp(username);
+        User_Acc ua = uad.FindExistUserAcc(username);
         if(ua!=null){
             request.setAttribute("errorU", "Username existed!");
             request.getRequestDispatcher("/main/account/signup.jsp").forward(request, response);

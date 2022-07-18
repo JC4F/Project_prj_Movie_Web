@@ -53,7 +53,7 @@
                             <input type="checkbox" ${(cookie.crem.value!=null?'checked':'')} name="reminde-me" id="reminde-me" value="On">
                             <span class="checkmark"></span>
                         </label>
-                        <a href="#">Forgot Password?</a>
+                        <a href="forgot-pw">Forgot Password?</a>
                     </div>
                 </form>
                 <div class="link-to-rest">

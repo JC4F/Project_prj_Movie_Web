@@ -17,8 +17,8 @@ function handleAll() {
     //btn shoping card + btn avatar
     let shopingCardBtn = _$('#page-heading .shoping-card-title')
     let avatarBtn = _$('#page-heading .avatar-wrapper img')
-    
-    if(shopingCardBtn && avatarBtn){
+
+    if (shopingCardBtn && avatarBtn) {
         shopingCardBtn.onclick = function () {
             this.parentElement.classList.toggle('onclick');
         }
@@ -444,24 +444,74 @@ function handleSignUp() {
             iterations: 2,
         })
     }
+}
 
-    // submit form with method post
-    function sendData(path, parameters, method = 'post') {
+// forgot pw page
+function handleForgotPw() {
+    let formInputs = _$_$('input:not([type="checkbox"])');
+    let userInput = _$('input[name="username"]');
+    let nextSpan1 = _$('.input_un');
+    let agreeBtn = _$('input[type="checkbox"]');
+    let submitBtn = _$('.form-submit');
 
-        const form = document.createElement('form');
-        form.method = method;
-        form.action = path;
-        document.body.appendChild(form);
-
-        for (const key in parameters) {
-            const formField = document.createElement('input');
-            formField.type = 'hidden';
-            formField.name = key;
-            formField.value = parameters[key];
-
-            form.appendChild(formField);
+    for (var formInput of formInputs) {
+        formInput.onblur = function (e) {
+            if (e.target.value) {
+                this.parentElement.classList.add('has-text');
+            } else
+                this.parentElement.classList.remove('has-text');
         }
-        form.submit();
+    }
+
+    let agreeErrors = _$('.agree-error');
+    let codeInput = _$('input[name="code"]');
+    let passInput = _$('input[name="password"]');
+    let repassInput = _$('input[name="password_confirmation"]');
+    let nextSpan2 = _$('.input_pw');
+    let nextSpan3 = _$('.re_password');
+
+    if(codeInput)
+        codeInput.oninput = function () {
+            nextSpan1.innerHTML = '';
+        }
+    if(passInput)
+        passInput.oninput = function () {
+            nextSpan2.innerHTML = '';
+        }
+    if(repassInput)
+        repassInput.oninput = function () {
+            nextSpan3.innerHTML = '';
+        }
+
+    submitBtn.onclick = (e) => {
+        e.preventDefault();
+        if (agreeBtn.checked) {
+            let parameters = {}
+            if (userInput) {
+                parameters = {
+                    action: 'find-acc',
+                    username: userInput.value
+                }
+            } else{
+                parameters = {
+                    action: 'get-forgot-pw',
+                    username: codeInput.dataset.un,
+                    code: codeInput.value,
+                    password: passInput.value,
+                    password_confirmation: repassInput.value
+                }
+            }
+            sendData('forgot-pw', parameters)
+            return;
+        }
+        agreeErrors.innerHTML = 'Agree Terms of Service to create a new account'
+        agreeErrors.animate([
+            {transform: 'translateX(-4px)'},
+            {transform: 'translateX(4px)'}
+        ], {
+            duration: 200,
+            iterations: 2,
+        })
     }
 }
 
@@ -665,16 +715,16 @@ function handleSubmitAddMovie(type) {
 
         let genreContainedataBox = _$_$('#genre-data .Result-infoWraper')
         let genreData = []
-        for(let genreContainerData of genreContainedataBox){
+        for (let genreContainerData of genreContainedataBox) {
             genreData.push(getData(genreContainerData.querySelectorAll('p')))
         }
-        
-        let parameters = {movieName, realseYear, length, country, rating, price, src, 
-            description, directorData, genreData: genreData.join("|"), actorData: actorData.join("|"), action:'add-movie'}
-        
-        if(type == 'add')
+
+        let parameters = {movieName, realseYear, length, country, rating, price, src,
+            description, directorData, genreData: genreData.join("|"), actorData: actorData.join("|"), action: 'add-movie'}
+
+        if (type == 'add')
             sendData('admin-addmovie', parameters)
-        else if(type == 'update'){
+        else if (type == 'update') {
             parameters.movieId = _$('input[name="name"]').dataset.id
 //            console.log(parameters);
             sendData('admin-handleUDmovie', parameters)

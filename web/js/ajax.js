@@ -174,7 +174,9 @@ function handleAjaxLoadMovieToHeader() {
     let cartCk = ''
     let targetAdd = document.querySelector('.MyCard-content')
                 
-    targetAdd.innerHTML = ''
+    if(targetAdd){
+        targetAdd.innerHTML = ''
+    }
     for (let cookie of cookies) {
         if (cookie.startsWith('cart'))
             cartCk = cookie.split("=")[1];
@@ -217,6 +219,10 @@ function handleAjaxLoadMovieToHeader() {
                 console.log("err");
             }
         });
+    } else {
+        if(targetAdd){
+            targetAdd.innerHTML += `<span class="no-cart">No item in cart</span>`
+        }
     }
 }
 
