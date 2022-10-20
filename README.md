@@ -1,6 +1,8 @@
 # Movie Web
 
 ## Require
+-Apache Tomcat 10
+
 -SQL SERVER(ex: 2019)
 
 -Apache Netbeans IDE 13
@@ -19,6 +21,14 @@
 
 
 ## Main Feature:
--Decentralize feature for normal users and admin
+-Login,Logout, User Profile, ...
 
 -CRUD
+
+-Decentralize feature for normal users and admin
+
+
+## Techology:
+-Frontend: Java(JSP), HTML/CSS(SCSS), Javascript, Bootstrap, Jquey(Ajax), Chart Js
+
+-Backend: Java(Servlet)
