@@ -366,6 +366,19 @@ function handleIndex() {
             T_container.style.transform = `translateX(-${(T_dotItem.dataset.index - 1) * 2 * T_oneReviewer}px)`;
         })
     }
+    
+    //messs================
+    let messIcon = _$('.page-controll-mess')
+    let pageMess = _$('#page-mess')
+    let controllClose = _$('.control-mess')
+
+    controllClose.onclick = function () {
+        pageMess.classList.toggle('display-mess')
+    }
+
+    messIcon.onclick = function () {
+        pageMess.classList.toggle('display-mess')
+    }
 }
 
 // login page
